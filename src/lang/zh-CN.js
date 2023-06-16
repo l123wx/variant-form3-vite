@@ -56,6 +56,7 @@ export default {
       'file-upload':    '文件',
       'rich-editor':    '富文本',
       cascader:         '级联选择',
+      'area-cascader':  '地址选择',
       slot:             '插槽',
 
       custom:           'Custom Component',
