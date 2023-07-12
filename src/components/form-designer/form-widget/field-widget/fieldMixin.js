@@ -1,8 +1,13 @@
 import {deepClone} from "@/utils/util"
 import FormValidators from '@/utils/validators'
-import eventBus from "@/utils/event-bus"
 
 export default {
+  data() {
+    return {
+      isFieldLoading: false
+    }
+  },
+
   inject: ['refList', 'getFormConfig', 'getGlobalDsv', 'globalOptionData', 'globalModel', 'getOptionData'],
 
   computed: {
@@ -492,6 +497,10 @@ export default {
 
     setAppendButtonDisabled(flag) {
       this.field.options.appendButtonDisabled = flag
+    },
+
+    setLoading(loading) {
+      this.isFieldLoading = loading
     },
 
     setHidden(flag) {

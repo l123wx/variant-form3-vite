@@ -3,6 +3,7 @@
                      :parent-widget="parentWidget" :parent-list="parentList" :index-of-parent-list="indexOfParentList"
                      :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex" :sub-form-row-id="subFormRowId">
     <el-select ref="fieldEditor" v-model="fieldModel" class="full-width-input"
+               v-loading="isFieldLoading"
                :disabled="field.options.disabled"
                :size="widgetSize"
                :clearable="field.options.clearable"
