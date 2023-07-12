@@ -10,7 +10,7 @@
 
 <template>
   <el-container class="main-container full-height">
-    <el-header class="main-header">
+    <el-header v-if="designerConfig.showHeader" class="main-header">
       <div class="float-left main-title">
         <img src="../../assets/vform-logo.png" @click="openHome">
         <span class="bold">VForm 3</span> {{i18nt('application.productTitle')}} <span class="version-span">Ver {{vFormVersion}}</span></div>
@@ -108,6 +108,7 @@
             formTemplates: true,  //是否显示表单模板
             eventCollapse: true,  //是否显示组件事件属性折叠面板
             widgetNameReadonly: false,  //禁止修改组件名称
+            showHeader: true, // 是否显示设计器header
 
             clearDesignerButton: true,  //是否显示清空设计器按钮
             previewFormButton: true,  //是否显示预览表单按钮
