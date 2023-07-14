@@ -131,14 +131,22 @@ export default {
     handleOnCreated() {
       if (!!this.field.options.onCreated) {
         let customFunc = new Function(this.field.options.onCreated)
-        customFunc.call(this)
+        try {
+          customFunc.call(this)
+        } catch (err) {
+          console.error(err)
+        }
       }
     },
 
     handleOnMounted() {
       if (!!this.field.options.onMounted) {
         let mountFunc = new Function(this.field.options.onMounted)
-        mountFunc.call(this)
+        try {
+          mountFunc.call(this)
+        } catch (err) {
+          console.error(err)
+        }
       }
     },
 
@@ -345,14 +353,22 @@ export default {
 
       if (!!this.field.options.onFocus) {
         let customFn = new Function('event', this.field.options.onFocus)
-        customFn.call(this, event)
+        try {
+          customFn.call(this)
+        } catch (err) {
+          console.error(err)
+        }
       }
     },
 
     handleBlurCustomEvent(event) {
       if (!!this.field.options.onBlur) {
         let customFn = new Function('event', this.field.options.onBlur)
-        customFn.call(this, event)
+        try {
+          customFn.call(this, event)
+        } catch (err) {
+          console.error(err)
+        }
       }
     },
 
@@ -364,7 +380,11 @@ export default {
 
       if (!!this.field.options.onInput) {
         let customFn = new Function('value', this.field.options.onInput)
-        customFn.call(this, value)
+        try {
+          customFn.call(this, value)
+        } catch (err) {
+          console.error(err)
+        }
       }
     },
 
@@ -375,7 +395,11 @@ export default {
 
       if (!!this.field.options.onAppendButtonClick) {
         let customFn = new Function(this.field.options.onAppendButtonClick)
-        customFn.call(this)
+        try {
+          customFn.call(this)
+        } catch (err) {
+          console.error(err)
+        }
       } else {
         /* 必须调用mixins中的dispatch方法逐级向父组件发送消息！！ */
         this.dispatch('VFormRender', 'appendButtonClick', [this])
@@ -385,14 +409,22 @@ export default {
     handleOnChange(val, oldVal) {  //自定义onChange事件
       if (!!this.field.options.onChange) {
         let changeFn = new Function('value', 'oldValue', this.field.options.onChange)
-        changeFn.call(this, val, oldVal)
+        try {
+          changeFn.call(this, val, oldVal)
+        } catch (err) {
+          console.error(err)
+        }
       }
     },
 
     handleOnChangeForSubForm(val, oldVal, subFormData, rowId) {  //子表单自定义onChange事件
       if (!!this.field.options.onChange) {
         let changeFn = new Function('value', 'oldValue', 'subFormData', 'rowId', this.field.options.onChange)
-        changeFn.call(this, val, oldVal, subFormData, rowId)
+        try {
+          changeFn.call(this, val, oldVal, subFormData, rowId)
+        } catch (err) {
+          console.error(err)
+        }
       }
     },
 
@@ -403,7 +435,11 @@ export default {
 
       if (!!this.field.options.onClick) {
         let changeFn = new Function(this.field.options.onClick)
-        changeFn.call(this)
+        try {
+          changeFn.call(this)
+        } catch (err) {
+          console.error(err)
+        }
       } else {
         this.dispatch('VFormRender', 'buttonClick', [this]);
       }
@@ -412,7 +448,11 @@ export default {
     remoteQuery(keyword) {
       if (!!this.field.options.onRemoteQuery) {
         let remoteFn = new Function('keyword', this.field.options.onRemoteQuery)
-        remoteFn.call(this, keyword)
+        try {
+          remoteFn.call(this, keyword)
+        } catch (err) {
+          console.error(err)
+        }
       }
     },
 

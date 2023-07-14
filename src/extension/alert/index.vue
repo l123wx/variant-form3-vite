@@ -59,7 +59,12 @@
       handleCloseCustomEvent() {
         if (!!this.field.options.onClose) {
           let changeFn = new Function(this.field.options.onClose)
-          changeFn.call(this)
+          
+          try {
+            changeFn.call(this)
+          } catch (err) {
+            console.error(err)
+          }
         }
       }
 

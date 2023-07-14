@@ -298,21 +298,36 @@
         if (!!this.formConfig && !!this.formConfig.onFormDataChange) {
           let customFunc = new Function('fieldName', 'newValue', 'oldValue', 'formModel', 'subFormName', 'subFormRowIndex',
               this.formConfig.onFormDataChange)
-          customFunc.call(this, fieldName, newValue, oldValue, this.formDataModel, subFormName, subFormRowIndex)
+
+          try {
+            customFunc.call(this, fieldName, newValue, oldValue, this.formDataModel, subFormName, subFormRowIndex)
+          } catch (err) {
+            console.error(err)
+          }
         }
       },
 
       handleOnCreated() {
         if (!!this.formConfig && !!this.formConfig.onFormCreated) {
           let customFunc = new Function(this.formConfig.onFormCreated)
-          customFunc.call(this)
+          
+          try {
+            customFunc.call(this)
+          } catch (err) {
+            console.error(err)
+          }
         }
       },
 
       handleOnMounted() {
         if (!!this.formConfig && !!this.formConfig.onFormMounted) {
           let customFunc = new Function(this.formConfig.onFormMounted)
-          customFunc.call(this)
+
+          try {
+            customFunc.call(this)
+          } catch (err) {
+            console.error(err)
+          }
         }
       },
 

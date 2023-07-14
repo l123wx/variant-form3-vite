@@ -182,7 +182,14 @@
       handleOnBeforeUpload(file) {
         if (!!this.field.options.onBeforeUpload) {
           let bfFunc = new Function('file', this.field.options.onBeforeUpload)
-          let result = bfFunc.call(this, file)
+          let result
+
+          try {
+            result = bfFunc.call(this, file)
+          } catch (err) {
+            console.error(err)
+          }
+
           if (typeof result === 'boolean') {
             return result
           } else {
@@ -218,7 +225,12 @@
           let customResult = null
           if (!!this.field.options.onUploadSuccess) {
             let customFn = new Function('result', 'file', 'fileList', this.field.options.onUploadSuccess)
-            customResult = customFn.call(this, res, file, fileList)
+            
+            try {
+              customResult = customFn.call(this, res, file, fileList)
+            } catch (err) {
+              console.error(err)
+            }
           }
 
           this.updateFieldModelAndEmitDataChangeForUpload(fileList, customResult, res)
@@ -257,14 +269,24 @@
 
         if (!!this.field.options.onFileRemove) {
           let customFn = new Function('file', 'fileList', this.field.options.onFileRemove)
-          customFn.call(this, file, fileList)
+
+          try {
+            customFn.call(this, file, fileList)
+          } catch (err) {
+            console.error(err)
+          }
         }
       },
 
       handleUploadError(err, file, fileList) {
         if (!!this.field.options.onUploadError) {
           let customFn = new Function('error', 'file', 'fileList', this.field.options.onUploadError)
-          customFn.call(this, err, file, fileList)
+          
+          try {
+            customFn.call(this, err, file, fileList)
+          } catch (err) {
+            console.error(err)
+          }
         } else {
           this.$message({
             message: this.i18nt('render.hint.uploadError') + err,

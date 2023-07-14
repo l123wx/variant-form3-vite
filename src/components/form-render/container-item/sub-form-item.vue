@@ -280,28 +280,48 @@
       handleSubFormRowChange(subFormData) {
         if (!!this.widget.options.onSubFormRowChange) {
           let customFunc = new Function('subFormData', this.widget.options.onSubFormRowChange)
-          customFunc.call(this, subFormData)
+          
+          try {
+            customFunc.call(this, subFormData)
+          } catch (err) {
+            console.error(err)
+          }
         }
       },
 
       handleSubFormRowAdd(subFormData, newRowId) {
         if (!!this.widget.options.onSubFormRowAdd) {
           let customFunc = new Function('subFormData', 'newRowId', this.widget.options.onSubFormRowAdd)
-          customFunc.call(this, subFormData, newRowId)
+          
+          try {
+            customFunc.call(this, subFormData, newRowId)
+          } catch (err) {
+            console.error(err)
+          }
         }
       },
 
       handleSubFormRowInsert(subFormData, newRowId) {
         if (!!this.widget.options.onSubFormRowInsert) {
           let customFunc = new Function('subFormData', 'newRowId', this.widget.options.onSubFormRowInsert)
-          customFunc.call(this, subFormData, newRowId)
+          
+          try {
+            customFunc.call(this, subFormData, newRowId)
+          } catch (err) {
+            console.error(err)
+          }
         }
       },
 
       handleSubFormRowDelete(subFormData, deletedDataRow) {
         if (!!this.widget.options.onSubFormRowDelete) {
           let customFunc = new Function('subFormData', 'deletedDataRow', this.widget.options.onSubFormRowDelete)
-          customFunc.call(this, subFormData, deletedDataRow)
+          
+          try {
+            customFunc.call(this, subFormData, deletedDataRow)
+          } catch (err) {
+            console.error(err)
+          }
         }
       },
 
