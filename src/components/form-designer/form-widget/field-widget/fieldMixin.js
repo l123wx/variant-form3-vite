@@ -207,7 +207,7 @@ export default {
         return
       }
 
-      this.rules.splice(0, this.rules.length)  //清空已有
+      this.rules && this.rules.splice(0, this.rules.length)  //清空已有
     },
 
     buildFieldRules() {
@@ -215,7 +215,7 @@ export default {
         return
       }
 
-      this.rules.splice(0, this.rules.length)  //清空已有
+      this.clearFieldRules()
       if (!!this.field.options.required) {
         this.rules.push({
           required: true,
