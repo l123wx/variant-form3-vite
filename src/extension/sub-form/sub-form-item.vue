@@ -4,12 +4,14 @@
     <div :key="widget.id" class="sub-form-container"
          v-show="!widget.options.hidden">
       <el-row class="header-row">
-        <div class="action-header-column">
+        <div v-if="widget.options.actionColumnPosition === 'left'" class="action-header-column">
           <span class="action-label">{{i18nt('render.hint.subFormAction')}}</span>
-          <el-button :disabled="actionDisabled" round type="primary" size="small" class="action-button" @click="addSubFormRow"
+          <el-button :disabled="actionDisabled" circle type="primary" size="small" @click="addSubFormRow"
                      :title="i18nt('render.hint.subFormAddActionHint')">
-            {{i18nt('render.hint.subFormAddAction')}}<svg-icon icon-class="el-plus" /></el-button>
+            <svg-icon icon-class="el-plus" />
+          </el-button>
         </div>
+        <div v-if="widget.options.showRowNumber && widget.options.actionColumnPosition === 'right'" class="row-no-header-column">行号</div>
         <template v-for="(subWidget) in widget.widgetList" :key="subWidget.id + 'thc'">
           <div class="field-header-column"
                :class="[getLabelAlign(widget, subWidget), !!subWidget.options.required ? 'is-required' : '']"
@@ -34,16 +36,26 @@
               <span :title="subWidget.options.labelTooltip">{{subWidget.options.label}}</span></template>
           </div>
         </template>
+        <div v-if="widget.options.actionColumnPosition === 'right'" class="action-header-column">
+          <span class="action-label">{{i18nt('render.hint.subFormAction')}}</span>
+          <el-button :disabled="actionDisabled" circle type="primary" size="small" @click="addSubFormRow"
+                     :title="i18nt('render.hint.subFormAddActionHint')">
+            <svg-icon icon-class="el-plus" />
+          </el-button>
+        </div>
       </el-row>
       <el-row v-for="(subFormRowId, sfrIdx) in rowIdData" class="sub-form-row" :key="subFormRowId">
-        <div class="sub-form-action-column hide-label">
+        <div v-if="widget.options.actionColumnPosition === 'left'" class="sub-form-action-column">
           <div class="action-button-column">
-            <el-button :disabled="actionDisabled" circle @click="insertSubFormRow(sfrIdx)"
-                       :title="i18nt('render.hint.insertSubFormRow')"><svg-icon icon-class="el-plus" /></el-button>
-            <el-button :disabled="actionDisabled" circle @click="deleteSubFormRow(sfrIdx)"
-                       :title="i18nt('render.hint.deleteSubFormRow')"><svg-icon icon-class="el-delete" /></el-button>
-            <span v-if="widget.options.showRowNumber" class="row-number-span">#{{sfrIdx+1}}</span>
+            <el-button :disabled="actionDisabled || rowIdData.length === 1" circle @click="deleteSubFormRow(sfrIdx)"
+                       :title="i18nt('render.hint.deleteSubFormRow')">
+              <svg-icon icon-class="el-delete" />
+            </el-button>
+            <span class="row-number-span">#{{sfrIdx+1}}</span>
           </div>
+        </div>
+        <div v-if="widget.options.showRowNumber && widget.options.actionColumnPosition === 'right'" class="row-no-column">
+          <span class="row-number-span">#{{sfrIdx+1}}</span>
         </div>
         <template v-for="(subWidget, swIdx) in widget.widgetList" :key="subWidget.id + 'tc' + subFormRowId">
           <div class="sub-form-table-column hide-label" :style="{width: subWidget.options.columnWidth}">
@@ -56,9 +68,16 @@
             </component>
           </div>
         </template>
+        <div v-if="widget.options.actionColumnPosition === 'right'" class="sub-form-action-column">
+          <div class="action-button-column">
+            <el-button :disabled="actionDisabled || rowIdData.length === 1" circle @click="deleteSubFormRow(sfrIdx)"
+                       :title="i18nt('render.hint.deleteSubFormRow')">
+              <svg-icon icon-class="el-delete" />
+            </el-button>
+          </div>
+        </div>
       </el-row>
     </div>
-
   </container-item-wrapper>
 </template>
 
@@ -66,9 +85,9 @@
   import emitter from '@/utils/emitter'
   import i18n from '@/utils/i18n'
   import {deepClone, generateId} from '@/utils/util'
-  import refMixin from '../../../components/form-render/refMixin'
-  import ContainerItemWrapper from './container-item-wrapper'
-  import containerItemMixin from './containerItemMixin'
+  import refMixin from '@/components/form-render/refMixin'
+  import ContainerItemWrapper from '@/components/form-render/container-item/container-item-wrapper'
+  import containerItemMixin from '@/components/form-render/container-item/containerItemMixin'
   import FieldComponents from '@/components/form-designer/form-widget/field-widget/index'
   import SvgIcon from "@/components/svg-icon/index";
 
@@ -335,12 +354,11 @@
     text-align: left; //IE浏览器强制居左对齐
 
     :deep(.el-row.header-row) {
-      padding-bottom: 0;
+      padding: 0;
     }
 
     :deep(.el-row.sub-form-row) {
-      padding-top: 3px;
-      padding-bottom: 3px;
+      padding: 0;
 
       .row-number-span {
         margin-left: 16px;
@@ -349,8 +367,14 @@
   }
 
   div.action-header-column {
-    display: inline-block;
-    width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    box-sizing: content-box;
+    border: 1px solid #e1e2e3;
+    background: #f1f2f3;
+    padding: 8px;
 
     .action-label {
       margin-right: 12px;
@@ -363,7 +387,13 @@
   }
 
   div.field-header-column {
-    display: inline-block;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e1e2e3;
+    background: #f1f2f3;
+    padding: 8px;
     //overflow: hidden;
     //white-space: nowrap;  //文字超出长度不自动换行
     //text-overflow: ellipsis;  //文字超出长度显示省略号
@@ -379,6 +409,16 @@
     margin-right: 4px;
   }
 
+  div.row-no-header-column {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    text-align: center;
+    border: 1px solid #e1e2e3;
+    background: #f1f2f3;
+  }
+
   div.label-center-left {
     text-align: left;
   }
@@ -392,8 +432,13 @@
   }
 
   div.sub-form-action-column {
-    display: inline-block;
-    width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    box-sizing: content-box;
+    border: 1px solid #e1e2e3;
+    padding: 8px;
 
     :deep(.el-form-item) {
       margin-bottom: 0;
@@ -414,8 +459,18 @@
     }
   }
 
+  div.row-no-column {
+    display: flex;
+    align-items: center;
+    width: 50px;
+    border: 1px solid #e1e2e3;
+  }
+
   div.sub-form-table-column {
     display: inline-block;
+    flex: 1;
+    border: 1px solid #e1e2e3;
+    padding: 8px;
     //width: 200px;
 
     :deep(.el-form-item) {
