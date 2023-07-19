@@ -178,8 +178,8 @@ export function propertyRegistered(uniquePropName) {
 /**
  * 注册常见属性对应的属性编辑器
  * @param app
- * @param uniquePropName
- * @param propEditorName
+ * @param {string} uniquePropName 属性名称（保证名称唯一，不跟其他组件属性冲突）
+ * @param {string} propEditorName 对应属性编辑器的组件名称
  * @param editorComponent
  */
 export function registerCPEditor(app, uniquePropName, propEditorName, editorComponent) {
@@ -190,8 +190,8 @@ export function registerCPEditor(app, uniquePropName, propEditorName, editorComp
 /**
  * 注册高级属性对应的属性编辑器
  * @param app
- * @param uniquePropName
- * @param propEditorName
+ * @param uniquePropName 属性名称（保证名称唯一，不跟其他组件属性冲
+ * @param propEditorName 对应属性编辑器的组件名称
  * @param editorComponent
  */
 export function registerAPEditor(app, uniquePropName, propEditorName, editorComponent) {
@@ -202,8 +202,8 @@ export function registerAPEditor(app, uniquePropName, propEditorName, editorComp
 /**
  * 注册事件属性对应的属性编辑器
  * @param app
- * @param uniquePropName
- * @param propEditorName
+ * @param uniquePropName 属性名称（保证名称唯一，不跟其他组件属性冲
+ * @param propEditorName 对应属性编辑器的组件名称
  * @param editorComponent
  */
 export function registerEPEditor(app, uniquePropName, propEditorName, editorComponent) {

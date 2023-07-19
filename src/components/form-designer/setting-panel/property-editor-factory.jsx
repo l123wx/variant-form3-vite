@@ -7,7 +7,11 @@ import emitter from '@/utils/emitter'
  * @typedef {function(string, TextObject, Configs?): any} EditorCreator
  */
 
-/** @type {EditorCreator} */
+/**
+ * @type {EditorCreator}
+ * @param propName 组件字段key值
+ * @param textObject
+ */
 export const createInputTextEditor = function (propName, textObject) {
   return {
     props: {
@@ -23,7 +27,11 @@ export const createInputTextEditor = function (propName, textObject) {
   }
 }
 
-/** @type {EditorCreator} */
+/**
+ * @type {EditorCreator}
+ * @param propName 组件字段key值
+ * @param textObject
+ */
 export const createInputNumberEditor = function (propName, textObject) {
   return {
     props: {
@@ -49,7 +57,11 @@ export const createInputNumberEditor = function (propName, textObject) {
   }
 }
 
-/** @type {EditorCreator} */
+/**
+ * @type {EditorCreator}
+ * @param propName 组件字段key值
+ * @param textObject
+ */
 export const createBooleanEditor = function (propName, textObject) {
   return {
     props: {
@@ -65,7 +77,12 @@ export const createBooleanEditor = function (propName, textObject) {
   }
 }
 
-/** @type {EditorCreator} */
+/**
+ * @type {EditorCreator}
+ * @param propName 组件字段key值
+ * @param textObject
+ * @param configs 选项列表
+ */
 export const createCheckboxGroupEditor = function (propName, textObject, configs) {
   return {
     props: {
@@ -88,7 +105,12 @@ export const createCheckboxGroupEditor = function (propName, textObject, configs
 }
 
 
-/** @type {EditorCreator} */
+/**
+ * @type {EditorCreator}
+ * @param propName 组件字段key值
+ * @param textObject
+ * @param configs 选项列表
+ */
 export const createRadioGroupEditor = function (propName, textObject, configs) {
   return {
     props: {
@@ -110,7 +132,12 @@ export const createRadioGroupEditor = function (propName, textObject, configs) {
   }
 }
 
-/** @type {EditorCreator} */
+/**
+ * @type {EditorCreator}
+ * @param propName 组件字段key值
+ * @param textObject
+ * @param configs 选项列表
+ */
 export const createRadioButtonGroupEditor = function (propName, textObject, configs) {
   return {
     props: {
@@ -132,7 +159,12 @@ export const createRadioButtonGroupEditor = function (propName, textObject, conf
   }
 }
 
-/** @type {EditorCreator} */
+/**
+ * @type {EditorCreator}
+ * @param propName 组件字段key值
+ * @param textObject
+ * @param configs 选项列表
+ */
 export const createSelectEditor = function (propName, textObject, configs) {
   return {
     props: {
