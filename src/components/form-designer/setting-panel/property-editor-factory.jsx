@@ -1,14 +1,21 @@
-import {translate} from "@/utils/i18n"
+import { chooseTextByLang } from "@/utils/i18n"
 import emitter from '@/utils/emitter'
 
-export const createInputTextEditor = function (propName, propLabelKey) {
+/**
+ * @typedef {{ zh: string, en: string }} TextObject
+ * @typedef {{ optionItems: {value: string | number, label: string}[] }} Configs
+ * @typedef {function(string, TextObject, Configs?): any} EditorCreator
+ */
+
+/** @type {EditorCreator} */
+export const createInputTextEditor = function (propName, textObject) {
   return {
     props: {
       optionModel: Object,
     },
     render(h) {
       return (
-        <el-form-item label={translate(propLabelKey)}>
+        <el-form-item label={chooseTextByLang(textObject)}>
           <el-input type="text" v-model={this.optionModel[propName]} />
         </el-form-item>
       )
@@ -16,7 +23,8 @@ export const createInputTextEditor = function (propName, propLabelKey) {
   }
 }
 
-export const createInputNumberEditor = function (propName, propLabelKey) {
+/** @type {EditorCreator} */
+export const createInputNumberEditor = function (propName, textObject) {
   return {
     props: {
       optionModel: Object,
@@ -32,7 +40,7 @@ export const createInputNumberEditor = function (propName, propLabelKey) {
     },
     render(h) {
       return (
-          <el-form-item label={translate(propLabelKey)}>
+          <el-form-item label={chooseTextByLang(textObject)}>
             <el-input-number type="text" v-model={this.optionModel[propName]}
                              onChange={this.updateValue} style="width: 100%" />
           </el-form-item>
@@ -41,14 +49,15 @@ export const createInputNumberEditor = function (propName, propLabelKey) {
   }
 }
 
-export const createBooleanEditor = function (propName, propLabelKey) {
+/** @type {EditorCreator} */
+export const createBooleanEditor = function (propName, textObject) {
   return {
     props: {
       optionModel: Object,
     },
     render(h) {
       return (
-        <el-form-item label={translate(propLabelKey)}>
+        <el-form-item label={chooseTextByLang(textObject)}>
           <el-switch v-model={this.optionModel[propName]} />
         </el-form-item>
       )
@@ -56,14 +65,15 @@ export const createBooleanEditor = function (propName, propLabelKey) {
   }
 }
 
-export const createCheckboxGroupEditor = function (propName, propLabelKey, configs) {
+/** @type {EditorCreator} */
+export const createCheckboxGroupEditor = function (propName, textObject, configs) {
   return {
     props: {
       optionModel: Object,
     },
     render(h) {
       return (
-        <el-form-item label={translate(propLabelKey)}>
+        <el-form-item label={chooseTextByLang(textObject)}>
           <el-checkbox-group v-model={this.optionModel[propName]}>
             {
               configs.optionItems.map(item => {
@@ -78,14 +88,15 @@ export const createCheckboxGroupEditor = function (propName, propLabelKey, confi
 }
 
 
-export const createRadioGroupEditor = function (propName, propLabelKey, configs) {
+/** @type {EditorCreator} */
+export const createRadioGroupEditor = function (propName, textObject, configs) {
   return {
     props: {
       optionModel: Object,
     },
     render(h) {
       return (
-        <el-form-item label={translate(propLabelKey)}>
+        <el-form-item label={chooseTextByLang(textObject)}>
           <el-radio-group v-model={this.optionModel[propName]}>
             {
               configs.optionItems.map(item => {
@@ -99,14 +110,15 @@ export const createRadioGroupEditor = function (propName, propLabelKey, configs)
   }
 }
 
-export const createRadioButtonGroupEditor = function (propName, propLabelKey, configs) {
+/** @type {EditorCreator} */
+export const createRadioButtonGroupEditor = function (propName, textObject, configs) {
   return {
     props: {
       optionModel: Object,
     },
     render(h) {
       return (
-          <el-form-item label={translate(propLabelKey)}>
+          <el-form-item label={chooseTextByLang(textObject)}>
             <el-radio-group v-model={this.optionModel[propName]}>
               {
                 configs.optionItems.map(item => {
@@ -120,14 +132,15 @@ export const createRadioButtonGroupEditor = function (propName, propLabelKey, co
   }
 }
 
-export const createSelectEditor = function (propName, propLabelKey, configs) {
+/** @type {EditorCreator} */
+export const createSelectEditor = function (propName, textObject, configs) {
   return {
     props: {
       optionModel: Object,
     },
     render(h) {
       return (
-        <el-form-item label={translate(propLabelKey)}>
+        <el-form-item label={chooseTextByLang(textObject)}>
           <el-select v-model={this.optionModel[propName]}>
             {
               configs.optionItems.map(item => {
@@ -156,7 +169,7 @@ export const createEventHandlerEditor = function (eventPropName, eventParams) {
       return (
         <el-form-item label={eventPropName} label-width="150px">
             <el-button type="info" icon="el-icon-edit" plain round onClick={this.editEventHandler}>
-            {translate('designer.setting.addEventHandler')}</el-button>
+            {chooseTextByLang('designer.setting.addEventHandler')}</el-button>
         </el-form-item>
       )
     }

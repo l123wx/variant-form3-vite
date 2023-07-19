@@ -53,7 +53,7 @@
 
       <div class="drag-handler background-opacity" v-if="designer.selectedId === field.id">
         <i :title="i18nt('designer.hint.dragHandler')"><svg-icon icon-class="el-drag-move" /></i>
-        <i>{{i18n2t(`designer.widgetLabel.${field.type}`, `extension.widgetLabel.${field.type}`)}}</i>
+        <i>{{chooseTextByLang(field.name)}}</i>
         <i v-if="field.options.hidden === true"><svg-icon icon-class="el-hide" /></i>
       </div>
     </template>

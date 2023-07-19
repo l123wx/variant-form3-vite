@@ -27,7 +27,13 @@ export default app => {
         app,
         'card-folded',
         'card-folded-editor',
-        PEFactory.createBooleanEditor('folded', 'extension.setting.cardFolded')
+        PEFactory.createBooleanEditor(
+            'folded',
+            {
+                zh: '是否收起',
+                en: 'Folded'
+            }
+        )
     )
 
     PERegister.registerCPEditor(
@@ -36,7 +42,10 @@ export default app => {
         'card-showFold-editor',
         PEFactory.createBooleanEditor(
             'showFold',
-            'extension.setting.cardShowFold'
+            {
+                zh: '显示折叠按钮',
+                en: 'Show Fold'
+            }
         )
     )
 
@@ -46,7 +55,10 @@ export default app => {
         'card-cardWidth-editor',
         PEFactory.createInputTextEditor(
             'cardWidth',
-            'extension.setting.cardWidth'
+            {
+                zh: '卡片宽度',
+                en: 'Width Of Card'
+            }
         )
     )
 
@@ -59,9 +71,16 @@ export default app => {
         app,
         'card-shadow',
         'card-shadow-editor',
-        PEFactory.createSelectEditor('shadow', 'extension.setting.cardShadow', {
-            optionItems: shadowOptions
-        })
+        PEFactory.createSelectEditor(
+            'shadow',
+            {
+                zh: '显示阴影',
+                en: 'Shadow'
+            },
+            {
+                optionItems: shadowOptions
+            }
+        )
     )
     /* -------------------------------------------------- */
     registerCWGenerator('card', templateGenerator) //注册容器组件的代码生成器

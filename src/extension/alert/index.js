@@ -25,7 +25,13 @@ export default (app) => {
         app,
         'alert-title',
         'alert-title-editor',
-        PEFactory.createInputTextEditor('title', 'extension.setting.alertTitle')
+        PEFactory.createInputTextEditor(
+            'title',
+            {
+                zh: '标题',
+                en: 'Title'
+            }
+        )
     )
 
     let typeOptions = [
@@ -34,15 +40,31 @@ export default (app) => {
         { label: 'info', value: 'info' },
         { label: 'error', value: 'error' }
     ]
+
     // PERegister.registerCPEditor(app, 'alert-type', 'alert-type-editor',
-    //     PEFactory.createSelectEditor('type', 'extension.setting.alertType',
-    //         {optionItems: typeOptions}))
+    //     PEFactory.createSelectEditor(
+    //         'type',
+    //         {
+    //             zh: '类型',
+    //             en: 'Type'
+    //         },
+    //         { optionItems: typeOptions }
+    //     )
+    // )
+
     /* type属性映射已存在，无须再注册，故只需注册属性编辑器即可！！ */
     app.component(
         'alert-type-editor',
-        PEFactory.createSelectEditor('type', 'extension.setting.alertType', {
-            optionItems: typeOptions
-        })
+        PEFactory.createSelectEditor(
+            'type',
+            {
+                zh: '类型',
+                en: 'Type'
+            },
+            {
+                optionItems: typeOptions
+            }
+        )
     )
 
     PERegister.registerCPEditor(
@@ -51,7 +73,10 @@ export default (app) => {
         'alert-description-editor',
         PEFactory.createInputTextEditor(
             'description',
-            'extension.setting.description'
+            {
+                zh: '辅助性文字',
+                en: 'Description'
+            }
         )
     )
 
@@ -59,7 +84,13 @@ export default (app) => {
         app,
         'alert-closable',
         'alert-closable-editor',
-        PEFactory.createBooleanEditor('closable', 'extension.setting.closable')
+        PEFactory.createBooleanEditor(
+            'closable',
+            {
+                zh: '是否可关闭',
+                en: 'Closable'
+            }
+        )
     )
 
     PERegister.registerCPEditor(
@@ -68,7 +99,10 @@ export default (app) => {
         'alert-closeText-editor',
         PEFactory.createInputTextEditor(
             'closeText',
-            'extension.setting.closeText'
+            {
+                zh: '关闭按钮文字',
+                en: 'Text On Close Btn'
+            }
         )
     )
 
@@ -76,14 +110,26 @@ export default (app) => {
         app,
         'alert-center',
         'alert-center-editor',
-        PEFactory.createBooleanEditor('center', 'extension.setting.center')
+        PEFactory.createBooleanEditor(
+            'center',
+            {
+                zh: '文字居中',
+                en: 'Center'
+            }
+        )
     )
 
     PERegister.registerCPEditor(
         app,
         'alert-showIcon',
         'alert-showIcon-editor',
-        PEFactory.createBooleanEditor('showIcon', 'extension.setting.showIcon')
+        PEFactory.createBooleanEditor(
+            'showIcon',
+            {
+                zh: '显示图标',
+                en: 'Show Icon'
+            }
+        )
     )
 
     let effectOptions = [
@@ -96,7 +142,10 @@ export default (app) => {
         'alert-effect-editor',
         PEFactory.createRadioButtonGroupEditor(
             'effect',
-            'extension.setting.effect',
+            {
+                zh: '显示效果',
+                en: 'Effect'
+            },
             { optionItems: effectOptions }
         )
     )

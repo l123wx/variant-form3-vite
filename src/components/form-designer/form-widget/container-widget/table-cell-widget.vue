@@ -49,7 +49,7 @@
     </div>
 
     <div class="table-cell-handler" v-if="designer.selectedId === widget.id && widget.type === 'table-cell'">
-      <i>{{i18nt('designer.widgetLabel.' + widget.type)}}</i>
+      <i>{{chooseTextByLang(widget.name)}}</i>
     </div>
   </td>
 </template>

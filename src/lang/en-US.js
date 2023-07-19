@@ -22,46 +22,6 @@ export default {
 
     noWidgetHint: 'Please select a widget from the left list, drag and drop to this container.',
 
-    widgetLabel: {
-      grid:             'Grid',
-      table:            'Table',
-      tab:              'Tab',
-      section:          'Section',
-      'sub-form':       'SubForm',
-      'grid-col':       'GridCol',
-      'table-cell':     'TableCell',
-      'tab-pane':       'TabPane',
-      'data-table':     'DataTable',
-
-      input:          'Input',
-      textarea:       'Textarea',
-      number:         'InputNumber',
-      radio:          'Radio',
-      checkbox:       'Checkbox',
-      select:         'Select',
-      time:           'Time',
-      'time-range':   'Time range',
-      date:           'Date',
-      'date-range':   'Date range',
-      switch:         'Switch',
-      rate:           'Rate',
-      color:          'ColorPicker',
-      slider:         'Slider',
-      'static-text':  'Text',
-      'html-text':    'HTML',
-      button:         'Button',
-      divider:        'Divider',
-
-      'picture-upload': 'Picture',
-      'file-upload':    'File',
-      'rich-editor':    'Rich Editor',
-      cascader:         'Cascader',
-      'area-cascader':  'Area Cascader',
-      slot:             'Slot',
-
-      custom:           'Custom Component',
-    },
-
     hint: {
       selectParentWidget: 'Select parent of this widget',
       moveUpWidget: 'Move up this widget',

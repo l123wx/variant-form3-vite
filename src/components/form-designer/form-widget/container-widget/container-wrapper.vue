@@ -33,7 +33,7 @@
 
     <div class="drag-handler" v-if="designer.selectedId === widget.id && !widget.internal">
       <i :title="i18nt('designer.hint.dragHandler')"><svg-icon icon-class="el-drag-move" /></i>
-      <i>{{i18n2t(`designer.widgetLabel.${widget.type}`, `extension.widgetLabel.${widget.type}`)}}</i>
+      <i>{{chooseTextByLang(widget.name)}}</i>
       <i v-if="widget.options.hidden === true"><svg-icon icon-class="el-hide" /></i>
     </div>
   </div>

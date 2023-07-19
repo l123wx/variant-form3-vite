@@ -4,6 +4,10 @@ export default {
     type: 'area-cascader',
     icon: 'cascader-field',
     formItemFlag: true,
+    name: {
+        zh: '地点级联选择',
+        en: 'Area Cascader'
+    },
     options: {
         name: '',
         label: '',

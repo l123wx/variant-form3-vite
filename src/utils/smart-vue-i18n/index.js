@@ -22,6 +22,17 @@ export function createI18n(options) {
             return (message !== null) ? message : get(messages, path2)
         },
 
+        /**
+         * 根据语言选择对应文本
+         * @param {{
+         *  zh: string
+         *  en: string
+         * }} textObject
+        */
+        chooseTextByLang: (textObject) => {
+            return locale.lang === 'zh-CN' ? textObject.zh : textObject.en
+        },
+
         setLang(lang) {
             locale.lang = lang
         }

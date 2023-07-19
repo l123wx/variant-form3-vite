@@ -15,7 +15,7 @@
                      :move="checkContainerMove" @end="onContainerDragEnd">
             <template #item="{ element: ctn }">
               <li class="container-widget-item" :title="ctn.displayName" @dblclick="addContainerByDbClick(ctn)">
-                <span><svg-icon :icon-class="ctn.icon" class-name="color-svg-icon" />{{i18n2t(`designer.widgetLabel.${ctn.type}`, `extension.widgetLabel.${ctn.type}`)}}</span>
+                <span><svg-icon :icon-class="ctn.icon" class-name="color-svg-icon" />{{chooseTextByLang(ctn.name)}}</span>
               </li>
             </template>
           </draggable>
@@ -27,7 +27,7 @@
                      :clone="handleFieldWidgetClone" ghost-class="ghost" :sort="false">
             <template #item="{ element: fld }">
               <li class="field-widget-item" :title="fld.displayName" @dblclick="addFieldByDbClick(fld)">
-                <span><svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />{{i18n2t(`designer.widgetLabel.${fld.type}`, `extension.widgetLabel.${fld.type}`)}}</span>
+                <span><svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />{{chooseTextByLang(fld.name)}}</span>
               </li>
             </template>
           </draggable>
@@ -39,7 +39,7 @@
                      :clone="handleFieldWidgetClone" ghost-class="ghost" :sort="false">
             <template #item="{ element: fld }">
               <li class="field-widget-item" :title="fld.displayName" @dblclick="addFieldByDbClick(fld)">
-                <span><svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />{{i18n2t(`designer.widgetLabel.${fld.type}`, `extension.widgetLabel.${fld.type}`)}}</span>
+                <span><svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />{{chooseTextByLang(fld.name)}}</span>
               </li>
             </template>
           </draggable>
@@ -52,7 +52,7 @@
             <template #item="{ element: fld }">
               <li class="field-widget-item" :title="fld.displayName" @dblclick="addFieldByDbClick(fld)">
                 <span>
-                  <svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />{{i18n2t(`designer.widgetLabel.${fld.type}`, `extension.widgetLabel.${fld.type}`)}}</span>
+                  <svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />{{chooseTextByLang(fld.name)}}</span>
               </li>
             </template>
           </draggable>
@@ -180,7 +180,7 @@
           return {
             key: generateId(),
             ...con,
-            displayName: this.i18n2t(`designer.widgetLabel.${con.type}`, `extension.widgetLabel.${con.type}`)
+            displayName: this.chooseTextByLang(con.name)
           }
         }).filter(con => {
           return !con.internal && !this.isBanned(con.type)
@@ -190,7 +190,7 @@
           return {
             key: generateId(),
             ...fld,
-            displayName: this.i18n2t(`designer.widgetLabel.${fld.type}`, `extension.widgetLabel.${fld.type}`)
+            displayName: this.chooseTextByLang(fld.name)
           }
         }).filter(fld => {
           return !this.isBanned(fld.type)
@@ -200,7 +200,7 @@
           return {
             key: generateId(),
             ...fld,
-            displayName: this.i18n2t(`designer.widgetLabel.${fld.type}`, `extension.widgetLabel.${fld.type}`)
+            displayName: this.chooseTextByLang(fld.name)
           }
         }).filter(fld => {
           return !this.isBanned(fld.type)
@@ -210,7 +210,7 @@
           return {
             key: generateId(),
             ...fld,
-            displayName: this.i18n2t(`designer.widgetLabel.${fld.type}`, `extension.widgetLabel.${fld.type}`)
+            displayName: this.chooseTextByLang(fld.name)
           }
         }).filter(fld => {
           return !this.isBanned(fld.type)

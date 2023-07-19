@@ -4,6 +4,10 @@ export const containers = [
     category: 'container',
     icon: 'grid',
     cols: [],
+    name: {
+      zh: '栅格',
+      en: 'Grid'
+    },
     options: {
       name: '',
       hidden: false,
@@ -18,6 +22,10 @@ export const containers = [
     category: 'container',
     icon: 'table',
     rows: [],
+    name: {
+      zh: '表格',
+      en: 'Table'
+    },
     options: {
       name: '',
       hidden: false,
@@ -31,6 +39,10 @@ export const containers = [
     icon: 'tab',
     displayType: 'border-card',
     tabs: [],
+    name: {
+      zh: '标签页',
+      en: 'Tab'
+    },
     options: {
       name: '',
       hidden: false,
@@ -44,6 +56,10 @@ export const containers = [
     icon: 'grid-col',
     internal: true,
     widgetList: [],
+    name: {
+      zh: '栅格列',
+      en: 'GridCol'
+    },
     options: {
       name: '',
       hidden: false,
@@ -66,6 +82,10 @@ export const containers = [
     internal: true,
     widgetList: [],
     merged: false,
+    name: {
+      zh: '单元格',
+      en: 'TableCell'
+    },
     options: {
       name: '',
       cellWidth: '',
@@ -83,6 +103,10 @@ export const containers = [
     icon: 'tab-pane',
     internal: true,
     widgetList: [],
+    name: {
+      zh: '选项卡页',
+      en: 'TabPane'
+    },
     options: {
       name: '',
       label: '',
@@ -101,6 +125,10 @@ export const basicFields = [
     type: 'input',
     icon: 'text-field',
     formItemFlag: true,
+    name: {
+      zh: '单行输入',
+      en: 'Input'
+    },
     options: {
       name: '',
       label: '',
@@ -150,6 +178,10 @@ export const basicFields = [
     type: 'textarea',
     icon: 'textarea-field',
     formItemFlag: true,
+    name: {
+      zh: '多行输入',
+      en: 'Textarea'
+    },
     options: {
       name: '',
       label: '',
@@ -191,6 +223,10 @@ export const basicFields = [
     type: 'number',
     icon: 'number-field',
     formItemFlag: true,
+    name: {
+      zh: '计数器',
+      en: 'InputNumber'
+    },
     options: {
       name: '',
       label: '',
@@ -231,6 +267,10 @@ export const basicFields = [
     type: 'radio',
     icon: 'radio-field',
     formItemFlag: true,
+    name: {
+      zh: '单选项',
+      en: 'Radio'
+    },
     options: {
       name: '',
       label: '',
@@ -271,6 +311,10 @@ export const basicFields = [
     type: 'checkbox',
     icon: 'checkbox-field',
     formItemFlag: true,
+    name: {
+      zh: '多选项',
+      en: 'Checkbox'
+    },
     options: {
       name: '',
       label: '',
@@ -311,6 +355,10 @@ export const basicFields = [
     type: 'select',
     icon: 'select-field',
     formItemFlag: true,
+    name: {
+      zh: '下拉选项',
+      en: 'Select'
+    },
     options: {
       name: '',
       label: '',
@@ -359,6 +407,10 @@ export const basicFields = [
     type: 'time',
     icon: 'time-field',
     formItemFlag: true,
+    name: {
+      zh: '时间',
+      en: 'Time'
+    },
     options: {
       name: '',
       label: '',
@@ -399,6 +451,10 @@ export const basicFields = [
     type: 'time-range',
     icon: 'time-range-field',
     formItemFlag: true,
+    name: {
+      zh: '时间范围',
+      en: 'Time range'
+    },
     options: {
       name: '',
       label: '',
@@ -440,6 +496,10 @@ export const basicFields = [
     type: 'date',
     icon: 'date-field',
     formItemFlag: true,
+    name: {
+      zh: '日期',
+      en: 'Date'
+    },
     options: {
       name: '',
       label: '',
@@ -482,6 +542,10 @@ export const basicFields = [
     type: 'date-range',
     icon: 'date-range-field',
     formItemFlag: true,
+    name: {
+      zh: '日期范围',
+      en: 'Date range'
+    },
     options: {
       name: '',
       label: '',
@@ -525,6 +589,10 @@ export const basicFields = [
     type: 'switch',
     icon: 'switch-field',
     formItemFlag: true,
+    name: {
+      zh: '开关',
+      en: 'Switch'
+    },
     options: {
       name: '',
       label: '',
@@ -557,6 +625,10 @@ export const basicFields = [
     type: 'rate',
     icon: 'rate-field',
     formItemFlag: true,
+    name: {
+      zh: '评分',
+      en: 'Rate'
+    },
     options: {
       name: '',
       label: '',
@@ -594,6 +666,10 @@ export const basicFields = [
     type: 'color',
     icon: 'color-field',
     formItemFlag: true,
+    name: {
+      zh: '颜色选择器',
+      en: 'ColorPicker'
+    },
     options: {
       name: '',
       label: '',
@@ -626,6 +702,10 @@ export const basicFields = [
     type: 'slider',
     icon: 'slider-field',
     formItemFlag: true,
+    name: {
+      zh: '滑块',
+      en: 'Slider'
+    },
     options: {
       name: '',
       label: '',
@@ -664,6 +744,10 @@ export const basicFields = [
     type: 'static-text',
     icon: 'static-text',
     formItemFlag: false,
+    name: {
+      zh: '静态文字',
+      en: 'Text'
+    },
     options: {
       name: '',
       columnWidth: '200px',
@@ -684,6 +768,10 @@ export const basicFields = [
     type: 'html-text',
     icon: 'html-text',
     formItemFlag: false,
+    name: {
+      zh: 'HTML',
+      en: 'HTML'
+    },
     options: {
       name: '',
       columnWidth: '200px',
@@ -701,6 +789,10 @@ export const basicFields = [
     type: 'button',
     icon: 'button',
     formItemFlag: false,
+    name: {
+      zh: '按钮',
+      en: 'Button'
+    },
     options: {
       name: '',
       label: '',
@@ -727,6 +819,10 @@ export const basicFields = [
     type: 'divider',
     icon: 'divider',
     formItemFlag: false,
+    name: {
+      zh: '分隔线',
+      en: 'Divider'
+    },
     options: {
       name: '',
       label: '',
@@ -751,6 +847,10 @@ export const advancedFields = [
     type: 'picture-upload',
     icon: 'picture-upload-field',
     formItemFlag: true,
+    name: {
+      zh: '图片',
+      en: 'Picture'
+    },
     options: {
       name: '',
       label: '',
@@ -796,6 +896,10 @@ export const advancedFields = [
     type: 'file-upload',
     icon: 'file-upload-field',
     formItemFlag: true,
+    name: {
+      zh: '文件',
+      en: 'File'
+    },
     options: {
       name: '',
       label: '',
@@ -840,6 +944,10 @@ export const advancedFields = [
     type: 'rich-editor',
     icon: 'rich-editor-field',
     formItemFlag: true,
+    name: {
+      zh: '富文本',
+      en: 'Rich Editor'
+    },
     options: {
       name: '',
       label: '',
@@ -874,6 +982,10 @@ export const advancedFields = [
     type: 'cascader',
     icon: 'cascader-field',
     formItemFlag: true,
+    name: {
+      zh: '级联选择',
+      en: 'Cascader'
+    },
     options: {
       name: '',
       label: '',

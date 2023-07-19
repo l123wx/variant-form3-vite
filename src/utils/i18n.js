@@ -8,8 +8,6 @@ import enLocale from "@/lang/en-US";
 import zhLocale from "@/lang/zh-CN";
 import enLocale_render from "@/lang/en-US_render";
 import zhLocale_render from "@/lang/zh-CN_render";
-import enLocale_extension from "@/lang/en-US_extension";
-import zhLocale_extension from "@/lang/zh-CN_extension";
 
 const langResources = {
   'en-US': {
@@ -18,8 +16,7 @@ const langResources = {
     },
     ...enLocaleElement,
     ...enLocale,
-    ...enLocale_render,
-    ...enLocale_extension
+    ...enLocale_render
   },
 
   'zh-CN': {
@@ -28,8 +25,7 @@ const langResources = {
     },
     ...zhLocaleElement,
     ...zhLocale,
-    ...zhLocale_render,
-    ...zhLocale_extension
+    ...zhLocale_render
   }
 }
 
@@ -47,6 +43,8 @@ export const translate = function(key) {
   return i18n.$st(key)
 }
 
+export const chooseTextByLang = i18n.chooseTextByLang
+
 export const installI18n = (app) => {
   //
 }
@@ -62,5 +60,6 @@ export default {
       return i18n.$st2(key1, key2)
     },
 
+    chooseTextByLang: i18n.chooseTextByLang
   }
 }

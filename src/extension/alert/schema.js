@@ -2,6 +2,10 @@ export default {
     type: 'alert',
     icon: 'alert',
     formItemFlag: false,
+    name: {
+        zh: '通知',
+        en: 'Alert'
+    },
     options: {
         name: '',
         title: 'Good things are coming...',
