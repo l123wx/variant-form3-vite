@@ -4,8 +4,8 @@ import * as PEFactory from '@/components/form-designer/setting-panel/property-ed
 
 import { registerCWGenerator } from '@/utils/sfc-generator'
 
-import Component from './index.vue'
-import CardItem from './card-item'
+import DesignerComponent from './DesignerComponent.vue'
+import RenderComponent from './RenderComponent.vue'
 import schema from './schema'
 import templateGenerator from './sfc-generator'
 
@@ -20,8 +20,8 @@ export default app => {
      */
     addContainerWidgetSchema(schema) //加载组件Json Schema
     /* -------------------------------------------------- */
-    app.component(Component.name, Component) //注册设计期的容器组件
-    app.component(CardItem.name, CardItem) //注册运行期的容器组件
+    app.component(DesignerComponent.name, DesignerComponent) //注册设计期的容器组件
+    app.component(RenderComponent.name, RenderComponent) //注册运行期的容器组件
     /* -------------------------------------------------- */
     PERegister.registerCPEditor(
         app,

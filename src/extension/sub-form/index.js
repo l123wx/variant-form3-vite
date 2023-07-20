@@ -2,8 +2,8 @@ import { addContainerWidgetSchema } from "@/components/form-designer/widget-pane
 import * as PERegister from '@/components/form-designer/setting-panel/propertyRegister'
 import * as PEFactory from '@/components/form-designer/setting-panel/property-editor-factory.jsx'
 
-import Component from './index.vue'
-import subFormItemVue from "./sub-form-item.vue"
+import DesignerComponent from './DesignerComponent.vue'
+import RenderComponent from "./RenderComponent.vue"
 import schema from "./schema"
 
 export default app => {
@@ -17,8 +17,8 @@ export default app => {
      */
     addContainerWidgetSchema(schema)
     /* -------------------------------------------------- */
-    app.component(Component.name, Component) //注册设计期的容器组件
-    app.component(subFormItemVue.name, subFormItemVue) //注册运行期的容器组件
+    app.component(DesignerComponent.name, DesignerComponent) //注册设计期的容器组件
+    app.component(RenderComponent.name, RenderComponent) //注册运行期的容器组件
     /* -------------------------------------------------- */
 
     let positionOptions = [
