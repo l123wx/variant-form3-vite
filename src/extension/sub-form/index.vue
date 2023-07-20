@@ -79,7 +79,7 @@ export default {
 <style lang="scss" scoped>
 .sub-form-container {
     padding: 8px;
-    margin-bottom: 8px;
+    margin-bottom: 18px;
     border: 1px dashed #336699;
     text-align: left; //IE浏览器强制居左对齐
 
