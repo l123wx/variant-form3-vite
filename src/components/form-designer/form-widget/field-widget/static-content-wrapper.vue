@@ -50,24 +50,12 @@
         default: false
       },
 
+      refName: String,
+
       displayStyle: {
         type: String,
         default: 'block'
-      },
-
-      subFormRowIndex: { /* 子表单组件行索引，从0开始计数 */
-        type: Number,
-        default: -1
-      },
-      subFormColIndex: { /* 子表单组件列索引，从0开始计数 */
-        type: Number,
-        default: -1
-      },
-      subFormRowId: { /* 子表单组件行Id，唯一id且不可变 */
-        type: String,
-        default: ''
-      },
-    },
+      },    },
     computed: {
       selected() {
         return !!this.designer && this.field.id === this.designer.selectedId

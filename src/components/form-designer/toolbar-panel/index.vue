@@ -402,7 +402,7 @@
               this.buildTreeNodeOfWidget(wChild, tabNode.children)
             })
           })
-        } else if (widget.type === 'sub-form') {
+        } else if (widget.type === 'sub-form' || widget.type === 'tab-sub-form') {
           widget.widgetList.map(wChild => {
             this.buildTreeNodeOfWidget(wChild, curNode.children)
           })

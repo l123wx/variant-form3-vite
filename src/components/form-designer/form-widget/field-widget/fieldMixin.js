@@ -8,9 +8,13 @@ export default {
     }
   },
 
-  inject: ['refList', 'getFormConfig', 'getGlobalDsv', 'globalOptionData', 'globalModel', 'getOptionData'],
+  inject: ['refList', 'getFormConfig', 'getGlobalDsv', 'globalOptionData', 'getOptionData'],
 
   computed: {
+    propName() {
+      return this.subFormProp + this.field.options.name
+    },
+
     formConfig() {
       return this.getFormConfig()
     },
@@ -24,28 +28,13 @@ export default {
     },
 
     subFormItemFlag() {
-      return !!this.parentWidget ? this.parentWidget.type === 'sub-form' : false
-    },
-
-    formModel: {
-      cache: false,
-      get() {
-        return this.globalModel.formModel
-      }
-    },
-
+      return !!this.parentWidget ? this.parentWidget.type === 'sub-form' || this.parentWidget.type === 'tab-sub-form' : false
+    }
   },
 
   methods: {
 
     //--------------------- 组件内部方法 begin ------------------//
-    getPropName() {
-      if (this.subFormItemFlag && !this.designState) {
-        return this.subFormName + "." + this.subFormRowIndex + "." + this.field.options.name + ""
-      } else {
-        return this.field.options.name
-      }
-    },
 
     initFieldModel() {
       if (!this.field.formItemFlag) {
@@ -53,37 +42,20 @@ export default {
       }
 
       if (!!this.subFormItemFlag && !this.designState) {  //SubForm子表单组件需要特殊处理！！
-        let subFormData = this.formModel[this.subFormName]
-        if (((subFormData === undefined) || (subFormData[this.subFormRowIndex] === undefined) ||
-            (subFormData[this.subFormRowIndex][this.field.options.name] === undefined)) &&
-            (this.field.options.defaultValue !== undefined)) {
-          this.fieldModel = this.field.options.defaultValue
-          subFormData[this.subFormRowIndex][this.field.options.name] = this.field.options.defaultValue
-        } else if (subFormData[this.subFormRowIndex][this.field.options.name] === undefined) {
-          this.fieldModel = null
-          subFormData[this.subFormRowIndex][this.field.options.name] = null
-        } else {
-          this.fieldModel = subFormData[this.subFormRowIndex][this.field.options.name]
-        }
-
         /* 主动触发子表单内field-widget的onChange事件！！ */
+        let subFormData = this.subFormModel[this.subFormName]
         setTimeout(() => {  //延时触发onChange事件, 便于更新计算字段！！
           this.handleOnChangeForSubForm(this.fieldModel, this.oldFieldValue, subFormData, this.subFormRowId)
         }, 800)
-        this.oldFieldValue = deepClone(this.fieldModel)
-
-        this.initFileList()  //处理图片上传、文件上传字段
-
-        return
       }
 
-      if ((this.formModel[this.field.options.name] === undefined) &&
+      if ((this.subFormModel[this.field.options.name] === undefined) &&
           (this.field.options.defaultValue !== undefined)) {
         this.fieldModel = this.field.options.defaultValue
-      } else if (this.formModel[this.field.options.name] === undefined) {  //如果formModel为空对象，则初始化字段值为null!!
-        this.formModel[this.field.options.name] = null
+      } else if (this.subFormModel[this.field.options.name] === undefined) {  //如果subFormModel为空对象，则初始化字段值为null!!
+        this.subFormModel[this.field.options.name] = null
       } else {
-        this.fieldModel = this.formModel[this.field.options.name]
+        this.fieldModel = this.subFormModel[this.field.options.name]
       }
       this.oldFieldValue = deepClone(this.fieldModel)
       this.initFileList()  //处理图片上传、文件上传字段
@@ -105,7 +77,6 @@ export default {
 
     initEventHandler() {
       this.on$('setFormData', (newFormData) => {
-        console.log('formModel of globalModel----------', this.globalModel.formModel)
         if (!this.subFormItemFlag) {
           this.setValue(newFormData[this.field.options.name])
         }
@@ -113,7 +84,7 @@ export default {
 
       this.on$('field-value-changed', (values) => {
         if (!!this.subFormItemFlag) {
-          let subFormData = this.formModel[this.subFormName]
+          let subFormData = this.subFormModel[this.subFormName]
           this.handleOnChangeForSubForm(values[0], values[1], subFormData, this.subFormRowId)
         } else {
           this.handleOnChange(values[0], values[1])
@@ -150,30 +121,15 @@ export default {
       }
     },
 
-    registerToRefList(oldRefName) {
-      if ((this.refList !== null) && !!this.field.options.name) {
-        if (this.subFormItemFlag && !this.designState) { //处理子表单元素（且非设计状态）
-          if (!!oldRefName) {
-            delete this.refList[oldRefName + '@row' + this.subFormRowId]
-          }
-          this.refList[this.field.options.name + '@row' + this.subFormRowId] = this
-        } else {
-          if (!!oldRefName) {
-            delete this.refList[oldRefName]
-          }
-          this.refList[this.field.options.name] = this
-        }
+    registerToRefList() {
+      if ((this.refList !== null) && !!this.refName) {
+        this.refList[this.refName] = this
       }
     },
 
     unregisterFromRefList() {  //销毁组件时注销组件ref
-      if ((this.refList !== null) && !!this.field.options.name) {
-        let oldRefName = this.field.options.name
-        if (this.subFormItemFlag && !this.designState) { //处理子表单元素（且非设计状态）
-          delete this.refList[oldRefName + '@row' + this.subFormRowId]
-        } else {
-          delete this.refList[oldRefName]
-        }
+      if ((this.refList !== null) && !!this.refName) {
+        delete this.refList[!!this.refName]
       }
     },
 
@@ -326,15 +282,7 @@ export default {
         return
       }
 
-      if (!!this.subFormItemFlag) {
-        let subFormData = this.formModel[this.subFormName] || [{}]
-        let subFormDataRow = subFormData[this.subFormRowIndex]
-        if (!!subFormDataRow) { // 重置表单后subFormDataRow为undefined，应跳过！！
-          subFormDataRow[this.field.options.name] = value
-        }
-      } else {
-        this.formModel[this.field.options.name] = value
-      }
+      this.subFormModel[this.field.options.name] = value
     },
 
     handleChangeEvent(value) {
@@ -345,7 +293,7 @@ export default {
       this.oldFieldValue = deepClone(value)  /* oldFieldValue需要在initFieldModel()方法中赋初值!! */
 
       /* 主动触发表单的单个字段校验，用于清除字段可能存在的校验错误提示 */
-      this.dispatch('VFormRender', 'fieldValidation', [this.getPropName()])
+      this.dispatch('VFormRender', 'fieldValidation', [this.propName])
     },
 
     handleFocusCustomEvent(event) {
@@ -376,7 +324,7 @@ export default {
       this.syncUpdateFormModel(value)
 
       /* 主动触发表单的单个字段校验，用于清除字段可能存在的校验错误提示 */
-      this.dispatch('VFormRender', 'fieldValidation', [this.getPropName()])
+      this.dispatch('VFormRender', 'fieldValidation', [this.propName])
 
       if (!!this.field.options.onInput) {
         let customFn = new Function('value', this.field.options.onInput)
@@ -624,14 +572,6 @@ export default {
 
     setToolbar(customToolbar) {
       this.customToolbar = customToolbar
-    },
-
-    /**
-     * 是否子表单内嵌的组件
-     * @returns {boolean}
-     */
-    isSubFormItem() {
-      return !!this.parentWidget ? this.parentWidget.type === 'sub-form' : false
     },
 
     /**

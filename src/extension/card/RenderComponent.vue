@@ -19,8 +19,17 @@
       <template v-if="!!widget.widgetList && (widget.widgetList.length > 0)">
         <template v-for="(subWidget, swIdx) in widget.widgetList">
           <template v-if="'container' === subWidget.category">
-            <component :is="getComponentByContainer(subWidget)" :widget="subWidget" :key="swIdx" :parent-list="widget.widgetList"
-                       :index-of-parent-list="swIdx" :parent-widget="widget">
+            <component
+              :refName="subWidget.options.name"
+              :sub-form-prop="subFormProp"
+              :sub-form-model="subFormModel"
+              :is="getComponentByContainer(subWidget)"
+              :widget="subWidget"
+              :key="swIdx"
+              :parent-list="widget.widgetList"
+              :index-of-parent-list="swIdx"
+              :parent-widget="widget"
+            >
               <!-- 递归传递插槽！！！ -->
               <template v-for="slot in Object.keys($slots)" v-slot:[slot]="scope">
                 <slot :name="slot" v-bind="scope"/>
@@ -28,8 +37,18 @@
             </component>
           </template>
           <template v-else>
-            <component :is="subWidget.type + '-widget'" :field="subWidget" :designer="null" :key="swIdx" :parent-list="widget.widgetList"
-                       :index-of-parent-list="swIdx" :parent-widget="widget">
+            <component
+              :refName="subWidget.options.name"
+              :sub-form-prop="subFormProp"
+              :sub-form-model="subFormModel"
+              :is="subWidget.type + '-widget'"
+              :field="subWidget"
+              :designer="null"
+              :key="swIdx"
+              :parent-list="widget.widgetList"
+              :index-of-parent-list="swIdx"
+              :parent-widget="widget"
+            >
               <!-- 递归传递插槽！！！ -->
               <template v-for="slot in Object.keys($slots)" v-slot:[slot]="scope">
                 <slot :name="slot" v-bind="scope"/>
@@ -63,8 +82,16 @@
     },
     props: {
       widget: Object,
+      subFormModel: {
+        type: Object,
+        default: undefined
+      },
+      subFormProp: {
+        type: String,
+        default: ''
+      },
     },
-    inject: ['refList', 'sfRefList', 'globalModel'],
+    inject: ['refList', 'sfRefList'],
     computed: {
       customClass() {
         return this.widget.options.customClass || ''

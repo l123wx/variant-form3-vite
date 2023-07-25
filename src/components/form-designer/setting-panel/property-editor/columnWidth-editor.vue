@@ -28,8 +28,7 @@
     },
     mounted() {
       this.designer.handleEvent('field-selected', (parentWidget) => {
-        this.subFormChildWidgetFlag = !!parentWidget && (parentWidget.type === 'sub-form');
-        //console.log('subFormChildWidgetFlag', this.subFormChildWidgetFlag)
+        this.subFormChildWidgetFlag = !!parentWidget && (parentWidget.type === 'sub-form' || parentWidget.type === 'tab-sub-form');
       })
     }
   }

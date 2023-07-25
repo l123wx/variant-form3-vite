@@ -1,7 +1,6 @@
 <template>
   <static-content-wrapper :designer="designer" :field="field" :design-state="designState" :display-style="field.options.displayStyle"
-                     :parent-widget="parentWidget" :parent-list="parentList" :index-of-parent-list="indexOfParentList"
-                     :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex" :sub-form-row-id="subFormRowId">
+                     :parent-widget="parentWidget" :parent-list="parentList" :index-of-parent-list="indexOfParentList">
     <el-button ref="fieldEditor" :type="field.options.type" :size="widgetSize"
                :plain="field.options.plain" :round="field.options.round"
                :circle="field.options.circle" :icon="field.options.icon"
@@ -28,24 +27,17 @@
       indexOfParentList: Number,
       designer: Object,
 
+      subFormModel: {
+        type: Object,
+        default: undefined
+      },
+
       designState: {
         type: Boolean,
         default: false
       },
 
-      subFormRowIndex: { /* 子表单组件行索引，从0开始计数 */
-        type: Number,
-        default: -1
-      },
-      subFormColIndex: { /* 子表单组件列索引，从0开始计数 */
-        type: Number,
-        default: -1
-      },
-      subFormRowId: { /* 子表单组件行Id，唯一id且不可变 */
-        type: String,
-        default: ''
-      },
-
+      refName: String
     },
     components: {
       StaticContentWrapper,
@@ -58,6 +50,8 @@
     },
 
     created() {
+      if (this.designState) return
+
       /* 注意：子组件mounted在父组件created之后、父组件mounted之前触发，故子组件mounted需要用到的prop
          需要在父组件created中初始化！！ */
       this.registerToRefList()
@@ -67,10 +61,14 @@
     },
 
     mounted() {
+      if (this.designState) return
+      
       this.handleOnMounted()
     },
 
     beforeUnmount() {
+      if (this.designState) return
+      
       this.unregisterFromRefList()
     },
 

@@ -5,9 +5,15 @@
             :class="[customClass]"
             :ref="widget.id" v-show="!widget.options.hidden">
       <template v-for="(colWidget, colIdx) in widget.cols" :key="colIdx">
-        <grid-col-item :widget="colWidget" :parent-list="widget.cols"
-                       :index-of-parent-list="colIdx" :parent-widget="widget"
-                       :col-height="widget.options.colHeight">
+        <grid-col-item
+          :refName="colWidget.options.name"
+          :sub-form-model="subFormModel"
+          :widget="colWidget"
+          :parent-list="widget.cols"
+          :index-of-parent-list="colIdx"
+          :parent-widget="widget"
+          :col-height="widget.options.colHeight"
+        >
           <!-- 递归传递插槽！！！ -->
           <template v-for="slot in Object.keys($slots)" v-slot:[slot]="scope">
             <slot :name="slot" v-bind="scope"/>
@@ -15,7 +21,6 @@
         </grid-col-item>
       </template>
     </el-row>
-
   </container-item-wrapper>
 </template>
 
@@ -37,8 +42,17 @@
     },
     props: {
       widget: Object,
+
+      subFormModel: {
+        type: Object,
+        default: undefined
+      },
+      subFormProp: {
+        type: String,
+        default: ''
+      },
     },
-    inject: ['refList', 'sfRefList', 'globalModel'],
+    inject: ['refList', 'sfRefList'],
     created() {
       this.initRefList()
     },

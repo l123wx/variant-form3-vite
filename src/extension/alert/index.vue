@@ -31,28 +31,20 @@
         default: false
       },
 
-      subFormRowIndex: { /* 子表单组件行索引，从0开始计数 */
-        type: Number,
-        default: -1
-      },
-      subFormColIndex: { /* 子表单组件列索引，从0开始计数 */
-        type: Number,
-        default: -1
-      },
-      subFormRowId: { /* 子表单组件行Id，唯一id且不可变 */
-        type: String,
-        default: ''
-      },
-
+      refName: String
     },
     components: {
       StaticContentWrapper,
     },
     created() {
+      if (this.designState) return
+
       this.registerToRefList()
       this.initEventHandler()
     },
     beforeUnmount() {
+      if (this.designState) return
+
       this.unregisterFromRefList()
     },
     methods: {
@@ -67,7 +59,6 @@
           }
         }
       }
-
     }
   }
 </script>

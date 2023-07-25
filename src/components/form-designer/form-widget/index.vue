@@ -62,16 +62,12 @@
         getFormConfig: () => this.formConfig,  /* 解决provide传递formConfig属性的响应式更新问题！！ */
         getGlobalDsv: () => this.globalDsv, // 全局数据源变量
         globalOptionData: this.optionData,
-        getOptionData: () => this.optionData,
-        globalModel: {
-          formModel: this.formModel,
-        }
+        getOptionData: () => this.optionData
       }
     },
     inject: ['getDesignerConfig'],
     data() {
       return {
-        formModel: {},
         widgetRefList: {},
       }
     },
@@ -159,10 +155,6 @@
 
       checkMove(evt) {
         return this.designer.checkWidgetMove(evt)
-      },
-
-      getFormData() {
-        return this.formModel
       },
 
       getWidgetRef(widgetName, showError = false) {

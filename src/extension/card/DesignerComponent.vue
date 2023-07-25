@@ -74,9 +74,6 @@
       },
 
     },
-    created() {
-      this.initRefList()
-    },
     methods: {
       /**
        * 检查接收哪些组件拖放，如不接受某些组件拖放，则根据组件类型判断后返回false
@@ -98,7 +95,6 @@
       setFolded(folded) {
         this.widget.options.folded = !!folded
       }
-
     }
   }
 </script>

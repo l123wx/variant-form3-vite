@@ -4,8 +4,16 @@
       :style="{width: widget.options.cellWidth + ' !important' || '', height: widget.options.cellHeight + ' !important' || '', 'word-break': !!widget.options.wordBreak ? 'break-all' : 'normal'}">
     <template v-for="(subWidget, swIdx) in widget.widgetList">
       <template v-if="'container' === subWidget.category">
-        <component :is="getComponentByContainer(subWidget)" :widget="subWidget" :key="swIdx" :parent-list="widget.widgetList"
-                        :index-of-parent-list="swIdx" :parent-widget="widget">
+        <component
+          :refName="subWidget.options.name"
+          :sub-form-model="subFormModel"
+          :is="getComponentByContainer(subWidget)"
+          :widget="subWidget"
+          :key="swIdx"
+          :parent-list="widget.widgetList"
+          :index-of-parent-list="swIdx"
+          :parent-widget="widget"
+        >
           <!-- 递归传递插槽！！！ -->
           <template v-for="slot in Object.keys($slots)" v-slot:[slot]="scope">
             <slot :name="slot" v-bind="scope"/>
@@ -13,8 +21,16 @@
         </component>
       </template>
       <template v-else>
-        <component :is="subWidget.type + '-widget'" :field="subWidget" :key="swIdx" :parent-list="widget.widgetList"
-                      :index-of-parent-list="swIdx" :parent-widget="widget">
+        <component
+          :refName="subWidget.options.name"
+          :sub-form-model="subFormModel"
+          :is="subWidget.type + '-widget'"
+          :field="subWidget"
+          :key="swIdx"
+          :parent-list="widget.widgetList"   
+          :index-of-parent-list="swIdx"
+          :parent-widget="widget"
+        >
           <!-- 递归传递插槽！！！ -->
           <template v-for="slot in Object.keys($slots)" v-slot:[slot]="scope">
             <slot :name="slot" v-bind="scope"/>
@@ -41,10 +57,19 @@
     props: {
       widget: Object,
 
+      subFormModel: {
+        type: Object,
+        default: undefined
+      },
+      subFormProp: {
+        type: String,
+        default: ''
+      },
+
       rowIndex: Number,
       colIndex: Number,
     },
-    inject: ['refList', 'globalModel'],
+    inject: ['refList'],
     computed: {
       customClass() {
         return this.widget.options.customClass || ''

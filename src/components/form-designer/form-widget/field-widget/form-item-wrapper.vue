@@ -13,7 +13,7 @@
     <el-form-item v-if="!!field.formItemFlag && (!field.options.hidden || (designState === true))"
                   :label="label" :label-width="labelWidth + 'px'"
                   :title="field.options.labelTooltip"
-                  :rules="rules" :prop="getPropName()"
+                  :rules="rules" :prop="propName"
                   :class="[selected ? 'selected' : '', labelAlign, customClass, field.options.required ? 'required' : '']"
                   @click.stop="selectField(field)">
 
@@ -77,23 +77,21 @@
       parentList: Array,
       indexOfParentList: Number,
 
+      subFormModel: {
+        type: Object,
+        default: undefined
+      },
+      propName: {
+        type: String,
+        default: ''
+      },
+
       designState: {
         type: Boolean,
         default: false
       },
 
-      subFormRowIndex: { /* 子表单组件行索引，从0开始计数 */
-        type: Number,
-        default: -1
-      },
-      subFormColIndex: { /* 子表单组件列索引，从0开始计数 */
-        type: Number,
-        default: -1
-      },
-      subFormRowId: { /* 子表单组件行Id，唯一id且不可变 */
-        type: String,
-        default: ''
-      },
+      refName: String,
 
       rules: Array,
     },
@@ -152,7 +150,7 @@
       },
 
       subFormItemFlag() {
-        return !!this.parentWidget ? this.parentWidget.type === 'sub-form' : false
+        return !!this.parentWidget ? this.parentWidget.type === 'sub-form' || this.parentWidget.type === 'tab-sub-form' : false
       },
 
     },
@@ -209,16 +207,6 @@
           })
         }
       },
-
-      getPropName() {
-        if (this.subFormItemFlag && !this.designState) {
-          return this.subFormName + "." + this.subFormRowIndex + "." + this.field.options.name + ""
-        } else {
-          return this.field.options.name
-        }
-      },
-
-
     }
   }
 </script>

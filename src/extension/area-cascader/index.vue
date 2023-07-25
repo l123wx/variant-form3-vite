@@ -1,5 +1,5 @@
 <template>
-    <form-item-wrapper :designer="designer" :field="field" :rules="rules" :design-state="designState"
+    <form-item-wrapper :prop-name="propName" :designer="designer" :field="field" :rules="rules" :design-state="designState"
         :parent-widget="parentWidget" :parent-list="parentList" :index-of-parent-list="indexOfParentList"
         :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex" :sub-form-row-id="subFormRowId">
         <div class="full-width-input">
@@ -31,6 +31,16 @@ export default {
         parentList: Array,
         indexOfParentList: Number,
         designer: Object,
+        
+        subFormModel: {
+            type: Object,
+            default: undefined
+        },
+        subFormProp: {
+            type: String,
+            default: ''
+        },
+
 
         designState: {
             type: Boolean,
@@ -72,6 +82,8 @@ export default {
     },
 
     created() {
+        if (this.designState) return
+
         /* 注意：子组件mounted在父组件created之后、父组件mounted之前触发，故子组件mounted需要用到的prop
            需要在父组件created中初始化！！ */
         this.initOptionItems()
@@ -84,15 +96,15 @@ export default {
     },
 
     mounted() {
+        if (this.designState) return
+
         this.handleOnMounted()
     },
 
     beforeUnmount() {
+        if (this.designState) return
+
         this.unregisterFromRefList()
-    },
-
-    methods: {
-
     }
 }
 </script>

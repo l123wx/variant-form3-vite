@@ -37,7 +37,7 @@
 import containerMixin from '@/components/form-designer/form-widget/container-widget/containerMixin'
 import ContainerWrapper from '@/components/form-designer/form-widget/container-widget/container-wrapper'
 import FieldComponents from '@/components/form-designer/form-widget/field-widget/index'
-import refMixinDesign from '@/components/form-render/refMixin'
+import refMixinDesign from "@/components/form-designer/refMixinDesign"
 import SvgIcon from '@/components/svg-icon/index'
 
 export default {
@@ -61,18 +61,7 @@ export default {
         selected() {
             return this.widget.id === this.designer.selectedId
         }
-    },
-    data() {
-        return {
-            rowIdData: [],
-            fieldSchemaData: [],
-            actionDisabled: false
-        }
-    },
-    created() {
-        this.initRefList()
-    },
-    methods: {}
+    }
 }
 </script>
 

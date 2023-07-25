@@ -15,8 +15,16 @@
            @submit.prevent>
     <template v-for="(widget, index) in widgetList">
       <template v-if="'container' === widget.category">
-        <component :is="getContainerWidgetName(widget)" :widget="widget" :key="widget.id" :parent-list="widgetList"
-                        :index-of-parent-list="index" :parent-widget="null">
+        <component
+          :refName="widget.options.name"
+          :sub-form-model="formDataModel"
+          :is="getContainerWidgetName(widget)"
+          :widget="widget"
+          :key="widget.id"
+          :parent-list="widgetList"
+          :index-of-parent-list="index"
+          :parent-widget="null"
+        >
           <!-- 递归传递插槽！！！ -->
           <template v-for="slot in Object.keys($slots)" v-slot:[slot]="scope">
             <slot :name="slot" v-bind="scope"/>
@@ -24,8 +32,18 @@
         </component>
       </template>
       <template v-else>
-        <component :is="getWidgetName(widget)" :field="widget" :form-model="formDataModel" :designer="null" :key="widget.id" :parent-list="widgetList"
-                      :index-of-parent-list="index" :parent-widget="null">
+        <component
+          :refName="widget.options.name"
+          :sub-form-model="formDataModel"
+          :is="getWidgetName(widget)"
+          :field="widget"
+          :form-model="formDataModel"
+          :designer="null"
+          :key="widget.id"
+          :parent-list="widgetList"
+          :index-of-parent-list="index"
+          :parent-widget="null"
+        >
           <!-- 递归传递插槽！！！ -->
           <template v-for="slot in Object.keys($slots)" v-slot:[slot]="scope">
             <slot :name="slot" v-bind="scope"/>
@@ -46,6 +64,7 @@
     getAllFieldWidgets, traverseFieldWidgets, buildDefaultFormJson
   } from "@/utils/util"
   import i18n, { changeLocale } from "@/utils/i18n"
+  import { getFormWidgetData } from './util.js'
 
   export default {
     name: "VFormRender",
@@ -86,9 +105,6 @@
         getGlobalDsv: () => this.globalDsv, // 全局数据源变量
         globalOptionData: this.optionData,
         getOptionData: () => this.optionData,  /* 该方法用于在异步更新option-data之后重新获取到最新值 */
-        globalModel: {
-          formModel: this.formDataModel,
-        },
         previewState: this.previewState,
       }
     },
@@ -198,81 +214,7 @@
       },
 
       buildFormModel(widgetList) {
-        if (!!widgetList && (widgetList.length > 0)) {
-          widgetList.forEach((wItem) => {
-            this.buildDataFromWidget(wItem)
-          })
-        }
-      },
-
-      buildDataFromWidget(wItem) {
-        if (wItem.category === 'container') {
-          if (wItem.type === 'grid') {
-            if (!!wItem.cols && (wItem.cols.length > 0)) {
-              wItem.cols.forEach((childItem) => {
-                this.buildDataFromWidget(childItem)
-              })
-            }
-          } else if (wItem.type === 'table') {
-            if (!!wItem.rows && (wItem.rows.length > 0)) {
-              wItem.rows.forEach((rowItem) => {
-                if (!!rowItem.cols && (rowItem.cols.length > 0)) {
-                  rowItem.cols.forEach((colItem) => {
-                    this.buildDataFromWidget(colItem)
-                  })
-                }
-              })
-            }
-          } else if (wItem.type === 'tab') {
-            if (!!wItem.tabs && (wItem.tabs.length > 0)) {
-              wItem.tabs.forEach((tabItem) => {
-                if (!!tabItem.widgetList && (tabItem.widgetList.length > 0)) {
-                  tabItem.widgetList.forEach((childItem) => {
-                    this.buildDataFromWidget(childItem)
-                  })
-                }
-              })
-            }
-          } else if (wItem.type === 'sub-form') {
-            let subFormName = wItem.options.name
-            if (!this.formData.hasOwnProperty(subFormName)) {
-              let subFormDataRow = {}
-              if (wItem.options.showBlankRow) {
-                wItem.widgetList.forEach(subFormItem => {
-                  if (!!subFormItem.formItemFlag) {
-                    subFormDataRow[subFormItem.options.name] = subFormItem.options.defaultValue
-                  }
-                })
-
-                this.formDataModel[subFormName] = [subFormDataRow]
-              } else {
-                this.formDataModel[subFormName] = []
-              }
-            } else {
-              let initialValue = this.formData[subFormName]
-              this.formDataModel[subFormName] = deepClone(initialValue)
-            }
-          } else if ((wItem.type === 'grid-col') || (wItem.type === 'table-cell')) {
-            if (!!wItem.widgetList && (wItem.widgetList.length > 0)) {
-              wItem.widgetList.forEach((childItem) => {
-                this.buildDataFromWidget(childItem)
-              })
-            }
-          } else {  //自定义容器组件
-            if (!!wItem.widgetList && (wItem.widgetList.length > 0)) {
-              wItem.widgetList.forEach((childItem) => {
-                this.buildDataFromWidget(childItem)
-              })
-            }
-          }
-        } else if (!!wItem.formItemFlag) {
-          if (!this.formData.hasOwnProperty(wItem.options.name)) {
-            this.formDataModel[wItem.options.name] = wItem.options.defaultValue
-          } else {
-            let initialValue = this.formData[wItem.options.name]
-            this.formDataModel[wItem.options.name] = deepClone(initialValue)
-          }
-        }
+        Object.assign(this.formDataModel, getFormWidgetData(widgetList))
       },
 
       addFieldChangeEventHandler() {
@@ -383,7 +325,7 @@
             let rowIds = subFormRef.getRowIdData()
             if (!!rowIds && (rowIds.length > 0)) {
               rowIds.forEach(rid => {
-                result.push( widgetName + '@row' + rid)
+                result.push( widgetName + '@row' + rid )
               })
             }
           }
@@ -556,15 +498,8 @@
         let wNameList = Object.keys(this.widgetRefList)
         wNameList.forEach(wName => {
           let foundW = this.getWidgetRef(wName)
-          if (!!foundW) {
-            if (!!foundW.widget && (foundW.widget.type === 'sub-form')) {
-              foundW.disableSubForm()
-            } else {
-              //!!foundW.setDisabled && foundW.setDisabled(true)
-              if (!!foundW.setDisabled) {
-                foundW.setDisabled(true)
-              }
-            }
+          if (!!foundW && !!foundW.setDisabled) {
+            foundW.setDisabled(true)
           }
         })
       },
@@ -573,15 +508,8 @@
         let wNameList = Object.keys(this.widgetRefList)
         wNameList.forEach(wName => {
           let foundW = this.getWidgetRef(wName)
-          if (!!foundW) {
-            if (!!foundW.widget && (foundW.widget.type === 'sub-form')) {
-              foundW.enableSubForm()
-            } else {
-              //!!foundW.setDisabled && foundW.setDisabled(false)
-              if (!!foundW.setDisabled) {
-                foundW.setDisabled(false)
-              }
-            }
+          if (!!foundW && !!foundW.setDisabled) {
+            foundW.setDisabled(false)
           }
         })
       },

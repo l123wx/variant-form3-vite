@@ -6,14 +6,6 @@ export default {
     customClass() {
       return this.widget.options.customClass || ''
     },
-
-    formModel: {
-      cache: false,
-      get() {
-        return this.globalModel.formModel
-      }
-    },
-
   },
   mounted() {
     this.callSetHidden()
@@ -104,51 +96,13 @@ export default {
       return !this.rowIdData ? 0 : this.rowIdData.length
     },
 
-    disableSubFormRow(rowIndex) {
-      this.widget.widgetList.forEach(subWidget => {
-        let swRefName = subWidget.options.name + '@row' + this.rowIdData[rowIndex]
-        let foundSW = this.getWidgetRef(swRefName)
-        if (!!foundSW) {
-          foundSW.setDisabled(true)
-        }
-      })
-    },
-
-    enableSubFormRow(rowIndex) {
-      this.widget.widgetList.forEach(subWidget => {
-        let swRefName = subWidget.options.name + '@row' + this.rowIdData[rowIndex]
-        let foundSW = this.getWidgetRef(swRefName)
-        if (!!foundSW) {
-          foundSW.setDisabled(false)
-        }
-      })
-    },
-
-    disableSubForm() {
-      if (this.rowIdData.length > 0) {
-        this.rowIdData.forEach((dataRow, rIdx) => {
-          this.disableSubFormRow(rIdx)
-        })
-      }
-
-      //禁用3个操作按钮
-      this.actionDisabled = true
-    },
-
-    enableSubForm() {
-      if (this.rowIdData.length > 0) {
-        this.rowIdData.forEach((dataRow, rIdx) => {
-          this.enableSubFormRow(rIdx)
-        })
-      }
-
-      //启用3个操作按钮
-      this.actionDisabled = false
+    setDisabled(bool) {
+      this.widget.options.disabled !== undefined && (this.widget.options.disabled = bool)
     },
 
     resetSubForm() { //重置subForm数据为空
-      if (this.widget.type === 'sub-form') {
-        let subFormModel = this.formModel[this.widget.options.name]
+      if (this.widget.type === 'sub-form' || this.widget.type === 'tab-sub-form') {
+        let subFormModel = this.subFormModel[this.widget.options.name]
         if (!!subFormModel) {
           subFormModel.splice(0, subFormModel.length)
           this.rowIdData.splice(0, this.rowIdData.length)
@@ -161,9 +115,9 @@ export default {
     },
 
     getSubFormValues(needValidation = true) {
-      if (this.widget.type === 'sub-form') {
+      if (this.widget.type === 'sub-form' || this.widget.type === 'tab-sub-form') {
         //TODO: 逐行校验子表单！！
-        return this.formModel[this.widget.options.name]
+        return this.subFormModel[this.widget.options.name]
       } else {
         this.$message.error(this.i18nt('render.hint.nonSubFormType'))
       }
