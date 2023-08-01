@@ -10,6 +10,7 @@
             <table-cell-item
               :refName="colWidget.options.name"
               :sub-form-model="subFormModel" v-if="!colWidget.merged"
+              :sub-form-prop="subFormProp"
               :widget="colWidget"
               :key="colIdx"
               :parent-list="widget.cols"

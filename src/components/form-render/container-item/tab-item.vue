@@ -11,6 +11,7 @@
               <component
                 :refName="subWidget.options.name"
                 :sub-form-model="subFormModel"
+                :sub-form-prop="subFormProp"
                 :is="getComponentByContainer(subWidget)"
                 :widget="subWidget"
                 :key="swIdx"
@@ -28,6 +29,7 @@
               <component
                 :refName="subWidget.options.name"
                 :sub-form-model="subFormModel"
+                :sub-form-prop="subFormProp"
                 :is="subWidget.type + '-widget'"
                 :field="subWidget"
                 :key="swIdx"

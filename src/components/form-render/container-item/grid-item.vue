@@ -8,6 +8,7 @@
         <grid-col-item
           :refName="colWidget.options.name"
           :sub-form-model="subFormModel"
+          :sub-form-prop="subFormProp"
           :widget="colWidget"
           :parent-list="widget.cols"
           :index-of-parent-list="colIdx"
