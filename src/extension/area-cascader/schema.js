@@ -1,5 +1,3 @@
-import cityList from '@/assets/city.json'
-
 export default {
     type: 'area-cascader',
     icon: 'cascader-field',
@@ -25,7 +23,6 @@ export default {
         multiple: false,
         checkStrictly: false, //可选择任意一级选项，默认不开启
         showAllLevels: true, //显示完整路径
-        optionItems: cityList,
         required: false,
         requiredHint: '',
         customRule: '',

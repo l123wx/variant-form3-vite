@@ -2,7 +2,7 @@
     <form-item-wrapper :prop-name="propName" :designer="designer" :field="field" :rules="rules" :design-state="designState"
         :parent-widget="parentWidget" :parent-list="parentList" :index-of-parent-list="indexOfParentList">
         <div class="full-width-input">
-            <el-cascader ref="fieldEditor" :options="field.options.optionItems" v-model="fieldModel"
+            <el-cascader ref="fieldEditor" :options="cityList" v-model="fieldModel"
                 :disabled="field.options.disabled" :size="widgetSize" :clearable="field.options.clearable"
                 :filterable="field.options.filterable"
                 :placeholder="field.options.placeholder || i18nt('render.hint.selectPlaceholder')"
@@ -19,6 +19,7 @@ import emitter from '@/utils/emitter'
 import i18n from "@/utils/i18n";
 import fieldMixin from "@/components/form-designer/form-widget/field-widget/fieldMixin";
 import FormItemWrapper from '@/components/form-designer/form-widget/field-widget/form-item-wrapper'
+import cityList from '@/assets/city.json'
 
 export default {
     name: "area-cascader-widget",
@@ -61,7 +62,9 @@ export default {
         showFullPath() {
             return (this.field.options.showAllLevels === undefined) || !!this.field.options.showAllLevels
         },
-
+        cityList() {
+            return cityList
+        }
     },
     beforeCreate() {
         /* 这里不能访问方法和属性！！ */
