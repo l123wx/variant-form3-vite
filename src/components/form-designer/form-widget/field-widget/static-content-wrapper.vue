@@ -188,6 +188,7 @@
 
     :deep(.el-divider--horizontal) {
       margin: 0;
+      margin-top: 22px;
     }
   }
 
