@@ -7,7 +7,7 @@
                :action="field.options.uploadURL" :headers="uploadHeaders" :data="uploadData"
                :with-credentials="field.options.withCredentials"
                :multiple="field.options.multipleSelect" :file-list="fileList"
-               :show-file-list="field.options.showFileList" :class="{'hideUploadDiv': uploadBtnHidden}"
+               :show-file-list="field.options.showFileList" :class="{'hideUploadDiv': uploadBtnHidden || field.options.disabled}"
                :limit="field.options.limit" :on-exceed="handleFileExceed" :before-upload="beforeFileUpload"
                :on-success="handleFileUpload" :on-error="handleUploadError">
       <template #tip>
@@ -218,7 +218,6 @@
             }
           }
 
-          this.updateFieldModelAndEmitDataChangeForUpload(fileList, customResult, res)
           if (!!customResult && !!customResult.name) {
             file.name = customResult.name
           } else {
@@ -231,6 +230,7 @@
           }
           this.fileList = deepClone(fileList)
           this.uploadBtnHidden = fileList.length >= this.field.options.limit
+          this.updateFieldModelAndEmitDataChangeForUpload(fileList, customResult, res)
         }
       },
 
