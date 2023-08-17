@@ -45,7 +45,7 @@ export default {
         /* 主动触发子表单内field-widget的onChange事件！！ */
         let subFormData = this.subFormModel[this.subFormName]
         setTimeout(() => {  //延时触发onChange事件, 便于更新计算字段！！
-          this.handleOnChangeForSubForm(this.fieldModel, this.oldFieldValue, subFormData, this.subFormRowId)
+          this.handleOnChangeForSubForm(this.fieldModel, this.oldFieldValue, subFormData)
         }, 800)
       }
 
@@ -76,16 +76,16 @@ export default {
     },
 
     initEventHandler() {
-      this.on$('setFormData', (newFormData) => {
+      this.on$('setFormData', () => {
         if (!this.subFormItemFlag) {
-          this.setValue(newFormData[this.field.options.name])
+          this.setValue(this.subFormModel[this.field.options.name])
         }
       })
 
       this.on$('field-value-changed', (values) => {
         if (!!this.subFormItemFlag) {
           let subFormData = this.subFormModel[this.subFormName]
-          this.handleOnChangeForSubForm(values[0], values[1], subFormData, this.subFormRowId)
+          this.handleOnChangeForSubForm(values[0], values[1], subFormData)
         } else {
           this.handleOnChange(values[0], values[1])
         }
@@ -274,7 +274,7 @@ export default {
 
       /* 必须用dispatch向指定父组件派发消息！！ */
       this.dispatch('VFormRender', 'fieldChange',
-          [this.field.options.name, newValue, oldValue, this.subFormName, this.subFormRowIndex])
+          [this.field.options.name, newValue, oldValue, this.subFormName])
     },
 
     syncUpdateFormModel(value) {

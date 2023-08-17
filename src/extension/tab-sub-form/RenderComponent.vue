@@ -134,6 +134,7 @@
             this.registerSubFormToRefList()
             this.initRowIdData()
             this.initFieldSchemaData()
+            this.initEventHandler()
         },
         mounted() {
             this.handleSubFormFirstRowAdd()
@@ -206,6 +207,23 @@
                 newFieldSchema.id = fieldWidget.type + generateId()
                 return newFieldSchema
             },
+
+            initEventHandler() {
+                if (this.widget.type !== 'tab-sub-form') {
+                    return
+                }
+
+                this.on$('setFormData', (newFormData) => {
+                    this.initRowIdData(false)
+                    this.initFieldSchemaData()
+
+                    let subFormData = newFormData[this.widget.options.name] || []
+                    setTimeout(() => {  //延时触发SubFormRowChange事件, 便于更新计算字段！！
+                        this.handleSubFormRowChange(subFormData)
+                    }, 800)
+                })
+            },
+
 
             handleSubFormFirstRowAdd() {
                 if (this.widget.type !== 'tab-sub-form') {

@@ -219,9 +219,9 @@
 
       addFieldChangeEventHandler() {
         this.off$('fieldChange')  //移除原有事件监听
-        this.on$('fieldChange', (fieldName, newValue, oldValue, subFormName, subFormRowIndex) => {
-          this.handleFieldDataChange(fieldName, newValue, oldValue, subFormName, subFormRowIndex)
-          this.$emit('formChange', fieldName, newValue, oldValue, this.formDataModel, subFormName, subFormRowIndex)
+        this.on$('fieldChange', (fieldName, newValue, oldValue, subFormName) => {
+          this.handleFieldDataChange(fieldName, newValue, oldValue, subFormName)
+          this.$emit('formChange', fieldName, newValue, oldValue, this.formDataModel, subFormName)
         })
       },
 

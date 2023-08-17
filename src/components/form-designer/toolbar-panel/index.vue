@@ -683,7 +683,7 @@
         console.log('---formChange end---')
         */
 
-        console.log('formModel', formModel)
+        // console.log('formModel', formModel)
       },
 
       testOnAppendButtonClick(clickedWidget) {
