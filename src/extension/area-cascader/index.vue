@@ -19,7 +19,7 @@ import emitter from '@/utils/emitter'
 import i18n from "@/utils/i18n";
 import fieldMixin from "@/components/form-designer/form-widget/field-widget/fieldMixin";
 import FormItemWrapper from '@/components/form-designer/form-widget/field-widget/form-item-wrapper'
-import cityList from '@/assets/city.json'
+import cityList from './city.json'
 
 export default {
     name: "area-cascader-widget",
