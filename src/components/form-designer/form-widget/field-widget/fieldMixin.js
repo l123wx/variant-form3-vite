@@ -77,7 +77,7 @@ export default {
 
     initEventHandler() {
       this.on$('setFormData', () => {
-        if (!this.subFormItemFlag) {
+        if (!this.subFormItemFlag && this.subFormModel) {
           this.setValue(this.subFormModel[this.field.options.name])
         }
       })
