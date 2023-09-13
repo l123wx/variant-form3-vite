@@ -438,10 +438,17 @@
         return promise
       },
 
-      setFormData(formData) { //设置表单数据
+      /**
+       * @param {*} ifUpdateWhenExist 当表单字段有值的时候是否更新该字段
+       */
+      setFormData(formData, ifUpdateWhenExist = true) { //设置表单数据
         Object.keys(this.formDataModel).forEach(propName => {
           if (!!formData && formData.hasOwnProperty(propName)) {
-            this.formDataModel[propName] = deepClone( formData[propName] )
+            if (ifUpdateWhenExist) {
+              this.formDataModel[propName] =  deepClone( formData[propName] )
+            } else {
+              this.formDataModel[propName] =  this.formDataModel[propName] || deepClone( formData[propName] )
+            }
           }
         })
 
