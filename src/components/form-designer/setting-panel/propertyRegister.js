@@ -128,6 +128,7 @@ const EVENT_PROPERTIES = {
   'onFileRemove'      :            'onFileRemove-editor',
   'onValidate'        :            'onValidate-editor',
   'onAppendButtonClick':           'onAppendButtonClick-editor',
+  'onLabelTooltipClick':           'onLabelTooltipClick-editor',
 
   //容器
   'onSubFormRowAdd'   :            'onSubFormRowAdd-editor',

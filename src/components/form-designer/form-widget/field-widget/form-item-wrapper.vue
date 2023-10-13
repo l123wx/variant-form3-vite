@@ -22,16 +22,26 @@
           <template v-if="field.options.labelIconPosition === 'front'">
             <template v-if="!!field.options.labelTooltip">
               <el-tooltip :content="field.options.labelTooltip" effect="light">
-                <svg-icon :icon-class="field.options.labelIconClass" /></el-tooltip>{{label}}</template>
+                <svg-icon :icon-class="field.options.labelIconClass" :style="field.options.onLabelTooltipClick ? 'cursor:pointer' : ''" @click="handleOnLabelTooltipClick" />
+              </el-tooltip>
+              {{ label }}
+            </template>
             <template v-else>
-              <svg-icon :icon-class="field.options.labelIconClass" />{{label}}</template>
+              <svg-icon :icon-class="field.options.labelIconClass" :style="field.options.onLabelTooltipClick ? 'cursor:pointer' : ''" @click="handleOnLabelTooltipClick" />
+              {{ label }}
+            </template>
           </template>
           <template v-else-if="field.options.labelIconPosition === 'rear'">
             <template v-if="!!field.options.labelTooltip">
-              {{label}}<el-tooltip :content="field.options.labelTooltip" effect="light">
-              <svg-icon :icon-class="field.options.labelIconClass" /></el-tooltip></template>
+              {{ label }}
+              <el-tooltip :content="field.options.labelTooltip" effect="light">
+                <svg-icon :icon-class="field.options.labelIconClass" :style="field.options.onLabelTooltipClick ? 'cursor:pointer' : ''" @click="handleOnLabelTooltipClick" />
+              </el-tooltip>
+            </template>
             <template v-else>
-              {{label}}<svg-icon :icon-class="field.options.labelIconClass" /></template>
+              {{ label }}
+              <svg-icon :icon-class="field.options.labelIconClass" :style="field.options.onLabelTooltipClick ? 'cursor:pointer' : ''" @click="handleOnLabelTooltipClick" />
+            </template>
           </template>
         </span>
       </template>
@@ -205,6 +215,17 @@
             this.designer.formWidget.deleteWidgetRef(fieldRefName)  //删除组件ref！！！
             this.designer.emitHistoryChange()
           })
+        }
+      },
+
+      handleOnLabelTooltipClick() {
+        if (!!this.field.options.onLabelTooltipClick) {
+          let changeFn = new Function(this.field.options.onLabelTooltipClick)
+          try {
+            changeFn.call(this)
+          } catch (err) {
+            console.error(err)
+          }
         }
       },
     }

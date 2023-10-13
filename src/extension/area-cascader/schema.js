@@ -32,6 +32,7 @@ export default {
         labelIconClass: null,
         labelIconPosition: 'rear',
         labelTooltip: null,
+        onLabelTooltipClick: '',
         //-------------------
         onCreated: '',
         onMounted: '',

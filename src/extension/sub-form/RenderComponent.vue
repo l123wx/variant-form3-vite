@@ -19,16 +19,26 @@
               <template v-if="subWidget.options.labelIconPosition === 'front'">
                 <template v-if="!!subWidget.options.labelTooltip">
                   <el-tooltip :content="subWidget.options.labelTooltip" effect="light">
-                    <svg-icon :icon-class="subWidget.options.labelIconClass" /></el-tooltip>{{subWidget.options.label}}</template>
+                    <svg-icon :icon-class="subWidget.options.labelIconClass" :style="subWidget.options.onLabelTooltipClick ? 'cursor:pointer' : ''" @click="handleOnLabelTooltipClick(subWidget)" />
+                  </el-tooltip>
+                  {{ subWidget.options.label }}
+                </template>
                 <template v-else>
-                  <svg-icon :icon-class="subWidget.options.labelIconClass" />{{subWidget.options.label}}</template>
+                  <svg-icon :icon-class="subWidget.options.labelIconClass" :style="subWidget.options.onLabelTooltipClick ? 'cursor:pointer' : ''" @click="handleOnLabelTooltipClick(subWidget)" />
+                  {{ subWidget.options.label }}
+                </template>
               </template>
               <template v-else-if="subWidget.options.labelIconPosition === 'rear'">
                 <template v-if="!!subWidget.options.labelTooltip">
-                  {{subWidget.options.label}}<el-tooltip :content="subWidget.options.labelTooltip" effect="light">
-                  <svg-icon :icon-class="subWidget.options.labelIconClass" /></el-tooltip></template>
+                  {{ subWidget.options.label }}
+                  <el-tooltip :content="subWidget.options.labelTooltip" effect="light">
+                    <svg-icon :icon-class="subWidget.options.labelIconClass" :style="subWidget.options.onLabelTooltipClick ? 'cursor:pointer' : ''" @click="handleOnLabelTooltipClick(subWidget)" />
+                  </el-tooltip>
+                </template>
                 <template v-else>
-                  {{subWidget.options.label}}<svg-icon :icon-class="subWidget.options.labelIconClass" /></template>
+                  {{ subWidget.options.label }}
+                  <svg-icon :icon-class="subWidget.options.labelIconClass" :style="subWidget.options.onLabelTooltipClick ? 'cursor:pointer' : ''" @click="handleOnLabelTooltipClick(subWidget)" />
+                </template>
               </template>
             </span>
             <template v-else>
@@ -348,6 +358,16 @@
         }
       },
 
+      handleOnLabelTooltipClick(subWidget) {
+        if (!!subWidget.options.onLabelTooltipClick) {
+          let changeFn = new Function(subWidget.options.onLabelTooltipClick)
+          try {
+            changeFn.call(this)
+          } catch (err) {
+            console.error(err)
+          }
+        }
+      },
     },
   }
 </script>

@@ -154,6 +154,7 @@ export const basicFields = [
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
+      onLabelTooltipClick: '',
       minLength: null,
       maxLength: null,
       showWordLimit: false,
@@ -205,6 +206,7 @@ export const basicFields = [
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
+      onLabelTooltipClick: '',
       minLength: null,
       maxLength: null,
       showWordLimit: false,
@@ -248,6 +250,7 @@ export const basicFields = [
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
+      onLabelTooltipClick: '',
       min: -100000000000,
       max: 100000000000,
       precision: 0,
@@ -299,6 +302,7 @@ export const basicFields = [
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
+      onLabelTooltipClick: '',
       //-------------------
       onCreated: '',
       onMounted: '',
@@ -343,6 +347,7 @@ export const basicFields = [
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
+      onLabelTooltipClick: '',
       //-------------------
       onCreated: '',
       onMounted: '',
@@ -392,6 +397,7 @@ export const basicFields = [
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
+      onLabelTooltipClick: '',
       //-------------------
       onCreated: '',
       onMounted: '',
@@ -437,6 +443,7 @@ export const basicFields = [
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
+      onLabelTooltipClick: '',
       //-------------------
       onCreated: '',
       onMounted: '',
@@ -482,6 +489,7 @@ export const basicFields = [
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
+      onLabelTooltipClick: '',
       //-------------------
       onCreated: '',
       onMounted: '',
@@ -528,6 +536,7 @@ export const basicFields = [
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
+      onLabelTooltipClick: '',
       //-------------------
       onCreated: '',
       onMounted: '',
@@ -575,6 +584,7 @@ export const basicFields = [
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
+      onLabelTooltipClick: '',
       //-------------------
       onCreated: '',
       onMounted: '',
@@ -608,6 +618,7 @@ export const basicFields = [
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
+      onLabelTooltipClick: '',
       switchWidth: 40,
       activeText: '',
       inactiveText: '',
@@ -648,6 +659,7 @@ export const basicFields = [
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
+      onLabelTooltipClick: '',
       max: 5,
       lowThreshold: 2,
       highThreshold: 4,
@@ -690,6 +702,7 @@ export const basicFields = [
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
+      onLabelTooltipClick: '',
       //-------------------
       onCreated: '',
       onMounted: '',
@@ -726,6 +739,7 @@ export const basicFields = [
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
+      onLabelTooltipClick: '',
       min: 0,
       max: 100,
       step: 10,
@@ -879,6 +893,7 @@ export const advancedFields = [
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
+      onLabelTooltipClick: '',
       //-------------------
       onCreated: '',
       onMounted: '',
@@ -928,6 +943,7 @@ export const advancedFields = [
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
+      onLabelTooltipClick: '',
       //-------------------
       onCreated: '',
       onMounted: '',
@@ -968,6 +984,7 @@ export const advancedFields = [
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
+      onLabelTooltipClick: '',
       minLength: null,
       maxLength: null,
       showWordLimit: false,
@@ -1017,6 +1034,7 @@ export const advancedFields = [
       labelIconClass: null,
       labelIconPosition: 'rear',
       labelTooltip: null,
+      onLabelTooltipClick: '',
       //-------------------
       onCreated: '',
       onMounted: '',
