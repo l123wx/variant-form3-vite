@@ -256,6 +256,8 @@
                     this.rowIdData[oldSubFormData.length - 1]
                 )
                 this.handleSubFormRowChange(oldSubFormData)
+
+                this.$refs[this.widget.id].currentName = this.rowIdData.length - 1
             },
 
             deleteSubFormRow(formRowIndex) {
@@ -285,6 +287,11 @@
                             deletedDataRow
                         )
                         this.handleSubFormRowChange(oldSubFormData)
+
+                        this.$refs[this.widget.id].currentName = Math.min(
+                            this.rowIdData.length - 1,
+                            this.$refs[this.widget.id].currentName
+                        )
                     })
                     .catch(err => {
                         console.error(err)
