@@ -1,47 +1,13 @@
 # Variant Form 3 For Vue 3.x
-#### 一款高效的Vue 3低代码表单，可视化设计，一键生成源码，享受更多摸鱼时间。
-
 ![image](https://ks3-cn-beijing.ksyuncs.com/vform-static/img/vform_demo.gif)
 
-<br/>
 
-### 立即体验VForm 3
-[在线Demo](http://120.92.142.115:81/vform3/)
- 
-### 立即体验VForm 3 Pro高级版（提供商业支持）
-[VForm 3 Pro Demo](https://www.vform666.com/pro/)
 
-### 视频教程集合：
-[B站观看](https://space.bilibili.com/626932375)
- 
-### 适合Vue 2的版本看这里
-[点此查看](https://gitee.com/vdpadmin/variant-form)
- 
-### 友情链接
-[Fantastic-admin](https://hooray.gitee.io/fantastic-admin/) —— 一款开箱即用的 Vue 中后台管理系统框架（支持Vue2/Vue3）
- 
-[REBUILD](https://getrebuild.com/) —— 高度可定制化的企业管理系统
-
-### 功能一览
-```
-> 拖拽式可视化表单设计；
-> 支持PC、Pad、H5三种布局；
-> 支持运行时动态加载表单；
-> 支持表单复杂交互控制；
-> 支持自定义CSS样式；
-> 支持自定义校验逻辑；
-> 支持国际化多语言；
-> 可导出Vue组件、HTML源码；
-> 可导出Vue的SFC单文件组件；
-> 支持开发自定义组件；
-> 支持响应式自适应布局；
-> 支持VS Code插件；
-> 更多功能等你探究...；
-```
+本项目由 [VForm 3 开源版本](https://github.com/vform666/variant-form3-vite)改造而来，修改了部分底层实现逻辑，不与原有 VForm3 兼容
 
 ### 安装依赖
 ```
-npm install --registry=https://registry.npm.taobao.org
+npm install
 ```
 
 ### 开发调试
@@ -50,6 +16,7 @@ npm run serve
 ```
 
 ### 生产打包
+
 ```
 npm run build
 ```
@@ -67,33 +34,18 @@ npm run lib-render
 ### 浏览器兼容性
 ```Chrome（及同内核的浏览器如QQ浏览器、360浏览器等等），Firefox，Safari```
 
-<br/>
+### 在Vue 3.x项目中使用
 
-### 跟Vue 3.x项目集成
-
-<br/>
-
-#### 1. 安装包
-```bash
-npm i vform3-builds
-```
-或
-```bash
-yarn add vform3-builds
-```
-
-<br/>
-
-#### 2. 引入并全局注册VForm 3组件
-```
+```js
 import { createApp } from 'vue'
 import App from './App.vue'
 
 import ElementPlus from 'element-plus'  //引入element-plus库
 import 'element-plus/dist/index.css'  //引入element-plus样式
 
-import VForm3 from 'vform3-builds'  //引入VForm 3库
-import 'vform3-builds/dist/designer.style.css'  //引入VForm3样式
+// Vue3表单组件
+import VForm3 from '@/components/vform/designer.umd.js'
+import '@/components/vform/designer.style.css'
 
 const app = createApp(App)
 app.use(ElementPlus)  //全局注册element-plus
@@ -102,74 +54,174 @@ app.use(VForm3)  //全局注册VForm 3(同时注册了v-form-designer和v-form-r
 app.mount('#app')
 ```
 
-<br/>
+注意：由于打包时VForm不会把element-plus的代码一起打包，所以在使用的时候必须全局导入element-plus
 
 #### 3. 在Vue 3.x模板中使用表单设计器组件
-```bash
+```vue
 <template>
-<v-form-designer ref="vfdRef"></v-form-designer>
+	<v-form-designer ref="vfdRef"></v-form-designer>
 </template>
 
 <script setup>
-const vfdRef = ref(null)
+	const vfdRef = ref(null)
+	
+	onMounted(() => {
+		// vfdRef.value.setFormJson({...})
+        // vfdRef.value.getFormJson()
+	})
 </script>
 
 <style lang="scss">
-body {
-margin: 0;  /* 如果页面出现垂直滚动条，则加入此行CSS以消除之 */
-}
+    body {
+        margin: 0;  /* 如果页面出现垂直滚动条，则加入此行CSS以消除之 */
+    }
 </style>
 ```
 
-<br/>
-
 #### 4. 在Vue 3.x模板中使用表单渲染器组件
-```html
+```vue
 <template>
 <div>
- <v-form-render :form-json="formJson" :form-data="formData" :option-data="optionData" ref="vFormRef">
+ <v-form-render :option-data="optionData" ref="vFormRef">
  </v-form-render>
  <el-button type="primary" @click="submitForm">Submit</el-button>
 </div>
 </template>
 <script setup>
-import { ref, reactive } from 'vue'
-import { ElMessage } from 'element-plus'
+    import { ref, reactive } from 'vue'
+    import { ElMessage } from 'element-plus'
 
-const formJson = reactive({"widgetList":[],"formConfig":{"modelName":"formData","refName":"vForm","rulesName":"rules","labelWidth":80,"labelPosition":"left","size":"","labelAlign":"label-left-align","cssCode":"","customClass":"","functions":"","layoutType":"PC","jsonVersion":3,"onFormCreated":"","onFormMounted":"","onFormDataChange":""}})
-const formData = reactive({})
-const optionData = reactive({})
-const vFormRef = ref(null)
+    const optionData = reactive({})
+    const vFormRef = ref(null)
 
-const submitForm = () => {
- vFormRef.value.getFormData().then(formData => {
-   // Form Validation OK
-   alert( JSON.stringify(formData) )
- }).catch(error => {
-   // Form Validation failed
-   ElMessage.error(error)
- })
-}
+    const submitForm = () => {
+        try {
+            const formData = await vFormRef.value.getFormData()
+            console.log(JSON.stringify(formData))
+        } catch(error) {
+            // Form Validation failed
+            ElMessage.error(error)
+        }
+    }
+
+    onMounted(() => {
+        vFormRef.value.setFormJson({...})
+        nextTick(() => {
+            vFormRef.value.setFormData({...})
+        })
+    })
 </script>
 ```
 
-<br/>
+## 使用教程
 
-### 资源链接
-<hr>
+### setFormData()
 
-文档官网：<a href="https://www.vform666.com/" target="_blank">https://www.vform666.com/</a>
+```js
+/**
+ * @param {boolean} ifUpdateWhenExist 当表单字段有值的时候是否更新该字段
+ */
+setFormData(formData, ifUpdateWhenExist = true)
+```
 
-在线演示：<a href="http://120.92.142.115:81/vform3/" target="_blank">http://120.92.142.115:81/vform3/</a>
+当 ifUpdateWhenExist 为 false 时，当表单中的某个字段已经有值时，不会修改这个字段\
 
-Github仓库：<a href="https://github.com/vform666/variant-form3-vite" target="_blank">https://github.com/vform666/variant-form3-vite</a>
+### setHidden()
 
-Gitee仓库：<a href="https://gitee.com/vdpadmin/variant-form3-vite" target="_blank">https://gitee.com/vdpadmin/variant-form3-vite</a>
+使用这个方法可以控制组件的显隐，当组件隐藏时，必填校验规则不会再进行校验，重新将组件显示时，会恢复校验
 
-更新日志：<a href="https://www.vform666.com/changelog.html" target="_blank">https://www.vform666.com/changelog.html</a>
+```js
+// 在当前组件的事件中直接使用this调用
+this.setHidden(value > 10)
 
-订阅Pro版：<a href="https://www.vform666.com/pro/" target="_blank">https://www.vform666.com/pro/</a>
+// 使用 getWidgetRef 方法调用其他组件的方法
+this.getWidgetRef('otherExampleFieldRefName').setHidden(value > 10)
+```
 
-技术交流群：扫如下二维码加群
+### 回显其他表单的字段
 
-![image](https://vform2022.ks3-cn-beijing.ksyuncs.com/vchat_qrcode.png)
+可以通过在表单的 onFormCreated 事件中使用 setFormData 方法实现这个需求。要注意的是，每次加载表单时都会执行 onFormCreated 回调，如果只希望第一次打开表单的时候回显某些字段，可以将 ifUpdateWhenExist 设置为 false，这样在修改过这些字段后就不会再赋值了。
+
+```js
+;(async () => {
+    try {
+        // 调用接口获取表单数据
+        // 为了共用项目中的请求方法，可以将请求方法挂载到 Vue 实例上
+        const formData = await this.fetchFormData('')
+
+        if (!formData) return
+
+        this.setFormData({
+            exampleField: formData.exampleField
+        }, false)
+    } catch (err) {
+        console.error(err)
+    }
+})()
+```
+
+### 动态加载选项
+
+在组件的 onCreated 事件中：
+
+```js
+;(async () => {
+    this.setLoading(true)
+    this.loadOptions([])
+
+    try {
+        // 通过接口获取选项
+        const { data } = await this.request({
+            methods: 'get',
+            url: 'exampleApi'
+        })
+
+        // 配置选项
+        this.loadOptions(
+            data.map(item => ({
+                label: item.customName,
+                value: item.id
+            }))
+        )
+    } finally {
+        this.setLoading(false)
+    }
+})()
+```
+
+### 字段联动
+
+如果是只涉及到一个字段，直接在这个字段组件的 onChange 事件中处理：
+
+```js
+this.getWidgetRef('otherExampleFieldRefName').setHidden(value > 10)
+```
+
+如果是多个字段直接的联动，建议在 表单的 onFormDataChange 中处理：
+
+```js
+;(async () => {
+    if (
+        // 判断本次修改的是不是需要处理的字段，当所有涉及的字段都不为空时才执行下面的逻辑
+        (
+            fieldName[0] === 'field1' ||
+            fieldName[0] === 'field2'
+        ) && (
+            formModel.field1 !== '' &&
+            formModel.field2 !== ''
+        )
+    ) {
+        console.log(field1 + field2)
+    }
+})()
+```
+
+### 文件上传设置 url 和 header
+
+在文件上传的 onCreated 事件中：
+
+```js
+// this.baseURL 和 this.getToken 是挂载到 Vue 实例上的全局变量
+this.setWidgetOption('uploadURL', this.baseURL + "/common/upload")
+this.setUploadHeader('Authorization', 'Bearer ' + this.getToken())
+```
