@@ -224,6 +224,7 @@
           try {
             changeFn.call(this)
           } catch (err) {
+            console.error(`Error form refName: ${this.refName}`)
             console.error(err)
           }
         }

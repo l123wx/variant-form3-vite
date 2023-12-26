@@ -105,6 +105,7 @@ export default {
         try {
           customFunc.call(this)
         } catch (err) {
+          console.error(`Error form refName: ${this.refName}`)
           console.error(err)
         }
       }
@@ -116,6 +117,7 @@ export default {
         try {
           mountFunc.call(this)
         } catch (err) {
+          console.error(`Error form refName: ${this.refName}`)
           console.error(err)
         }
       }
@@ -304,6 +306,7 @@ export default {
         try {
           customFn.call(this)
         } catch (err) {
+          console.error(`Error form refName: ${this.refName}`)
           console.error(err)
         }
       }
@@ -315,6 +318,7 @@ export default {
         try {
           customFn.call(this, event)
         } catch (err) {
+          console.error(`Error form refName: ${this.refName}`)
           console.error(err)
         }
       }
@@ -331,6 +335,7 @@ export default {
         try {
           customFn.call(this, value)
         } catch (err) {
+          console.error(`Error form refName: ${this.refName}`)
           console.error(err)
         }
       }
@@ -346,6 +351,7 @@ export default {
         try {
           customFn.call(this)
         } catch (err) {
+          console.error(`Error form refName: ${this.refName}`)
           console.error(err)
         }
       } else {
@@ -360,6 +366,7 @@ export default {
         try {
           changeFn.call(this, val, oldVal)
         } catch (err) {
+          console.error(`Error form refName: ${this.refName}`)
           console.error(err)
         }
       }
@@ -371,6 +378,7 @@ export default {
         try {
           changeFn.call(this, val, oldVal, subFormData, rowId)
         } catch (err) {
+          console.error(`Error form refName: ${this.refName}`)
           console.error(err)
         }
       }
@@ -386,6 +394,7 @@ export default {
         try {
           changeFn.call(this)
         } catch (err) {
+          console.error(`Error form refName: ${this.refName}`)
           console.error(err)
         }
       } else {
@@ -399,6 +408,7 @@ export default {
         try {
           remoteFn.call(this, keyword)
         } catch (err) {
+          console.error(`Error form refName: ${this.refName}`)
           console.error(err)
         }
       }

@@ -244,6 +244,7 @@
           try {
             customFunc.call(this, fieldName, newValue, oldValue, this.formDataModel, subFormName, subFormRowIndex)
           } catch (err) {
+            console.error(`Error form refName: ${this.refName}`)
             console.error(err)
           }
         }
@@ -256,6 +257,7 @@
           try {
             customFunc.call(this)
           } catch (err) {
+            console.error(`Error form refName: ${this.refName}`)
             console.error(err)
           }
         }
@@ -268,6 +270,7 @@
           try {
             customFunc.call(this)
           } catch (err) {
+            console.error(`Error form refName: ${this.refName}`)
             console.error(err)
           }
         }
@@ -447,7 +450,11 @@
             if (ifUpdateWhenExist) {
               this.formDataModel[propName] =  deepClone( formData[propName] )
             } else {
-              this.formDataModel[propName] =  this.formDataModel[propName] || deepClone( formData[propName] )
+              if (Object.prototype.toString.call(this.formDataModel[propName]) === '[object Array]') {
+                this.formDataModel[propName] =  this.formDataModel[propName].length ? this.formDataModel[propName] : deepClone( formData[propName] )
+              } else {
+                this.formDataModel[propName] =  this.formDataModel[propName] || deepClone( formData[propName] )
+              }
             }
           }
         })

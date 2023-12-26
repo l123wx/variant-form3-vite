@@ -308,6 +308,7 @@
                     try {
                         customFunc.call(this, subFormData)
                     } catch (err) {
+                        console.error(`Error form refName: ${this.refName}`)
                         console.error(err)
                     }
                 }
@@ -324,6 +325,7 @@
                     try {
                         customFunc.call(this, subFormData, newRowId)
                     } catch (err) {
+                        console.error(`Error form refName: ${this.refName}`)
                         console.error(err)
                     }
                 }
@@ -340,6 +342,7 @@
                     try {
                         customFunc.call(this, subFormData, newRowId)
                     } catch (err) {
+                        console.error(`Error form refName: ${this.refName}`)
                         console.error(err)
                     }
                 }
@@ -356,6 +359,7 @@
                     try {
                         customFunc.call(this, subFormData, deletedDataRow)
                     } catch (err) {
+                        console.error(`Error form refName: ${this.refName}`)
                         console.error(err)
                     }
                 }

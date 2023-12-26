@@ -172,6 +172,7 @@
           try {
             result = bfFunc.call(this, file)
           } catch (err) {
+            console.error(`Error form refName: ${this.refName}`)
             console.error(err)
           }
 
@@ -214,6 +215,7 @@
             try {
               customResult = mountFunc.call(this, res, file, fileList)
             } catch (err) {
+              console.error(`Error form refName: ${this.refName}`)
               console.error(err)
             }
           }
@@ -262,6 +264,7 @@
             try {
               customFn.call(this, foundFile, this.fileList)
             } catch (err) {
+              console.error(`Error form refName: ${this.refName}`)
               console.error(err)
             }
           }
@@ -275,6 +278,7 @@
           try {
             customFn.call(this, err, file, fileList)
           } catch (err) {
+            console.error(`Error form refName: ${this.refName}`)
             console.error(err)
           }
         } else {

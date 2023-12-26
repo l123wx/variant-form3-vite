@@ -189,6 +189,7 @@
           try {
             result = bfFunc.call(this, file)
           } catch (err) {
+            console.error(`Error form refName: ${this.refName}`)
             console.error(err)
           }
 
@@ -231,6 +232,7 @@
             try {
               customResult = customFn.call(this, res, file, fileList)
             } catch (err) {
+              console.error(`Error form refName: ${this.refName}`)
               console.error(err)
             }
           }
@@ -275,6 +277,7 @@
           try {
             customFn.call(this, file, fileList)
           } catch (err) {
+            console.error(`Error form refName: ${this.refName}`)
             console.error(err)
           }
         }
@@ -287,6 +290,7 @@
           try {
             customFn.call(this, err, file, fileList)
           } catch (err) {
+            console.error(`Error form refName: ${this.refName}`)
             console.error(err)
           }
         } else {
