@@ -108,7 +108,12 @@
       toggleCard() {
         this.widget.options.folded = !this.widget.options.folded
       },
-
+      setHidden(bool) {
+        this.widget.options.hidden = bool
+        this.widget.widgetList.forEach(item => {
+          this.getWidgetRef(item.options.name).setHidden(bool)
+        })
+      }
     },
   }
 </script>

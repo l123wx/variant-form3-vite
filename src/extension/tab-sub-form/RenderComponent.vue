@@ -29,7 +29,11 @@
                             "
                         >
                             <component
-                                :refName="subWidget.options.name + '@row' + subFormRowId"
+                                :refName="
+                                    subWidget.options.name +
+                                    '@row' +
+                                    subFormRowId
+                                "
                                 :sub-form-prop="`${subFormProp}${widget.options.name}.${sfrIdx}.`"
                                 :sub-form-model="subForm[sfrIdx]"
                                 :is="getComponentByContainer(subWidget)"
@@ -57,7 +61,11 @@
                             :key="subWidget.id + '_' + subFormRowId"
                         >
                             <component
-                                :refName="subWidget.options.name + '@row' + subFormRowId"
+                                :refName="
+                                    subWidget.options.name +
+                                    '@row' +
+                                    subFormRowId
+                                "
                                 :sub-form-prop="`${subFormProp}${widget.options.name}.${sfrIdx}.`"
                                 :sub-form-model="subForm[sfrIdx]"
                                 :is="subWidget.type + '-widget'"
@@ -115,7 +123,7 @@
             subFormProp: {
                 type: String,
                 default: ''
-            },
+            }
         },
         inject: ['refList', 'sfRefList'],
         data() {
@@ -153,7 +161,9 @@
                 if (this.widget.type === 'tab-sub-form') {
                     this.rowIdData.splice(0, this.rowIdData.length) //清除数组必须用splice，length=0不会响应式更新！！
                     if (!!this.subForm && this.subForm.length > 0) {
-                        this.rowIdData.push(...this.subForm.map(() => 'id' + generateId()))
+                        this.rowIdData.push(
+                            ...this.subForm.map(() => 'id' + generateId())
+                        )
                     }
                 }
             },
@@ -213,17 +223,18 @@
                     return
                 }
 
-                this.on$('setFormData', (newFormData) => {
+                this.on$('setFormData', newFormData => {
                     this.initRowIdData(false)
                     this.initFieldSchemaData()
 
-                    let subFormData = newFormData[this.widget.options.name] || []
-                    setTimeout(() => {  //延时触发SubFormRowChange事件, 便于更新计算字段！！
+                    let subFormData =
+                        newFormData[this.widget.options.name] || []
+                    setTimeout(() => {
+                        //延时触发SubFormRowChange事件, 便于更新计算字段！！
                         this.handleSubFormRowChange(subFormData)
                     }, 800)
                 })
             },
-
 
             handleSubFormFirstRowAdd() {
                 if (this.widget.type !== 'tab-sub-form') {
@@ -242,12 +253,14 @@
             },
 
             addSubFormRow() {
-                let newSubFormDataRow = getFormWidgetData(this.widget.widgetList)
+                let newSubFormDataRow = getFormWidgetData(
+                    this.widget.widgetList
+                )
 
                 let oldSubFormData =
                     this.subFormModel[this.widget.options.name] || []
                 oldSubFormData.push(newSubFormDataRow)
-                
+
                 this.addToRowIdData()
                 this.addToFieldSchemaData()
 
@@ -257,7 +270,8 @@
                 )
                 this.handleSubFormRowChange(oldSubFormData)
 
-                this.$refs[this.widget.id].currentName = this.rowIdData.length - 1
+                this.$refs[this.widget.id].currentName =
+                    this.rowIdData.length - 1
             },
 
             deleteSubFormRow(formRowIndex) {
@@ -363,6 +377,17 @@
                         console.error(err)
                     }
                 }
+            },
+
+            setHidden(bool) {
+                this.widget.options.hidden = bool
+                this.widget.widgetList.forEach(item => {
+                    this.rowIdData.forEach(rowId => {
+                        this.getWidgetRef(
+                            `${item.options.name}@row${rowId}`
+                        ).setHidden(bool)
+                    })
+                })
             }
         }
     }

@@ -373,6 +373,14 @@
           }
         }
       },
+      setHidden(bool) {
+        this.widget.options.hidden = bool
+        this.widget.widgetList.forEach(item => {
+          this.rowIdData.forEach(rowId => {
+            this.getWidgetRef(`${item.options.name}@row${rowId}`).setHidden(bool)
+          })
+        })
+      }
     },
   }
 </script>
