@@ -225,3 +225,8 @@ this.getWidgetRef('otherExampleFieldRefName').setHidden(value > 10)
 this.setWidgetOption('uploadURL', this.baseURL + "/common/upload")
 this.setUploadHeader('Authorization', 'Bearer ' + this.getToken())
 ```
+
+## 自定义组件
+
+项目中已经有几个自定义组件，代码位于 `src/extension` 路径中
+
