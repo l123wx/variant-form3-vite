@@ -194,7 +194,7 @@ function buildRadioChildren(widget, formConfig) {
   const childTag = !!wop.buttonStyle ? 'el-radio-button' : 'el-radio'
   const borderAttr = !!wop.border ? `border` : ''
   const styleAttr = `style="{display: ${wop.displayStyle}}"`
-  return `<${childTag} v-for="(item, index) in ${wop.name}Options" :key="index" :label="item.value"
+  return `<${childTag} v-for="(item, index) in ${wop.name}Options" :key="index" :value="item.value"
           :disabled="item.disabled" ${borderAttr} ${styleAttr}>{{item.label}}</${childTag}>`
 }
 

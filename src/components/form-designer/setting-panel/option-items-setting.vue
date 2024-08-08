@@ -6,7 +6,7 @@
                  v-bind="{group:'optionsGroup', ghostClass: 'ghost', handle: '.drag-option'}">
         <template #item="{ element: option, index: idx }">
           <li>
-            <el-radio :label="option.value">
+            <el-radio :value="option.value">
               <el-input v-model="option.value" size="small" style="width: 100px"></el-input>
               <el-input v-model="option.label" size="small" style="width: 100px"></el-input>
               <i class="iconfont icon-drag drag-option"></i>
